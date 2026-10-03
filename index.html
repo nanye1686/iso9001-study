@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ISO9001内审员">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>ISO 9001 内审员学习工具 · 刷题库 + 工作台</title>
+<meta name="description" content="面向零基础的 ISO 9001:2015 内审员学习工具：刷题库（含案例专题）与内审员工作台（条款速查/检查表/不符合项报告）。纯前端单文件，离线可用。">
+<style>
+:root{--bg:#eef2f8;--ink:#1f2937;--muted:#6b7280;--line:#e5e9f0;--primary:#2563eb;--primary-d:#1d4ed8;--radius:16px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 60px}
+.hero{background:linear-gradient(135deg,#1e40af,#2563eb 45%,#0ea5a4);color:#fff;border-radius:20px;padding:38px 32px;box-shadow:0 12px 40px rgba(30,64,175,.25)}
+.hero h1{margin:0 0 10px;font-size:28px}
+.hero p{margin:0;color:rgba(255,255,255,.92);max-width:620px}
+.tags{margin-top:16px}
+.tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px;font-size:13px;margin:0 8px 8px 0}
+.cards{display:grid;gap:18px;grid-template-columns:1fr 1fr;margin-top:24px}
+@media(max-width:680px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-decoration:none;color:inherit;transition:.18s;display:block;box-shadow:0 2px 10px rgba(23,43,77,.05)}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(23,43,77,.14);border-color:#bcd0f2}
+.card .ico{font-size:30px}
+.card h2{margin:10px 0 6px;font-size:19px}
+.card p{margin:0 0 14px;color:var(--muted);font-size:14px}
+.card .go{color:var(--primary-d);font-weight:700;font-size:14px}
+.sec{margin-top:34px}
+.sec h3{font-size:16px;margin:0 0 10px}
+ul{margin:0;padding-left:20px;color:#374151;font-size:14.5px}
+li{margin:3px 0}
+.foot{margin-top:34px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+code{background:#f1f5f9;padding:1px 6px;border-radius:5px;font-size:13px}
+.install{margin-top:18px;background:#eef4ff;border:1px solid #c7d9f7;border-radius:12px;padding:14px 16px;font-size:14px;color:#1e3a8a}
+.install b{font-weight:800}
+@media(max-width:680px){
+  .wrap{padding:20px 14px 48px}
+  .hero{padding:26px 20px;border-radius:16px}
+  .hero h1{font-size:22px}
+  .card{padding:20px}
+  .card:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>ISO 9001 内审员学习工具</h1>
+    <p>面向零基础：一个用来「刷题」，一个用来「干活」。纯前端单文件，双击即用、离线可跑。</p>
+    <div class="tags"><span class="tag">ISO 9001:2015 / GB/T 19001-2016</span><span class="tag">260 道题</span><span class="tag">案例专题</span><span class="tag">岗位检查表</span><span class="tag">离线可用</span><span class="tag">开源</span></div>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="iso9001-quiz.html">
+      <div class="ico">📝</div>
+      <h2>内审员刷题库</h2>
+      <p>单选 / 多选 / 判断 / 填空 / 案例 / 简答 / 名词解释 / 2026换版，共 260 题，全部附解析与条款依据。含错题本、收藏、模拟考，可导出错题集（PDF/Markdown/TXT）。</p>
+      <div class="go">开始刷题 →</div>
+    </a>
+    <a class="card" href="iso9001-workbench.html">
+      <div class="ico">🧰</div>
+      <h2>内审员工作台</h2>
+      <p>入门 4 周路线、条款速查、内审检查表、8 套岗位定制检查表、不符合项报告（NCR）模板、术语对照、模拟内审脚本、2026 换版与新旧差异对照。</p>
+      <div class="go">打开工作台 →</div>
+    </a>
+  </div>
+
+  <div class="install">
+    📱 <b>手机上使用：</b>用手机浏览器打开本页，即可刷题、查条款、生成检查表；点浏览器菜单里的「添加到主屏幕」，就能像 App 一样一键打开，离线也能用（页面已做移动端适配）。
+  </div>
+
+  <div class="sec">
+    <h3>特点</h3>
+    <ul>
+      <li>零基础友好：首页有概念速览，工作台有从 0 到能独立做内审的 4 周路线</li>
+      <li>单文件、无依赖、可离线：拷到手机/U盘/内网机器都能用</li>
+      <li>题目自编，依据现行 ISO 9001:2015 条款，附出处与解析</li>
+      <li>检查表、不符合项报告可直接打印或存为 PDF</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>本地使用</h3>
+    <ul>
+      <li>直接双击 <code>iso9001-quiz.html</code> 或 <code>iso9001-workbench.html</code></li>
+      <li>题目源码在 <code>src/</code>，改完执行 <code>node src/build.js</code> 重新生成刷题库</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    学习用途，非官方产品，与 ISO / 国家标准化管理机构无隶属关系。标准编号与条款引用仅用于学习说明；标准文本版权归 ISO 及各国家成员体所有。<br>
+    代码以 MIT 许可开源。题库内容仅供参考，不构成认证或审核依据。
+  </div>
+</div>
+</body>
+</html>

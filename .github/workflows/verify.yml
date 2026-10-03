@@ -1,0 +1,27 @@
+name: verify-build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: 重新构建刷题库并校验
+        run: |
+          node src/build.js
+          git diff --exit-code -- iso9001-quiz.html || (echo "::error::iso9001-quiz.html 与 src/ 不一致，请在本地运行 node src/build.js 后提交" && exit 1)
+      - name: 基础完整性检查
+        run: |
+          test -f iso9001-quiz.html
+          test -f iso9001-workbench.html
+          test -f index.html
+          grep -q "ISO 9001" iso9001-quiz.html
+          echo "OK"

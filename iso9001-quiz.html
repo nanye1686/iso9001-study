@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ISO9001内审员">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>ISO 9001 质量体系 · 内审员刷题库</title>
+<style>
+:root{
+  --bg:#eef2f8; --card:#ffffff; --ink:#1f2937; --muted:#6b7280; --line:#e5e9f0;
+  --primary:#2563eb; --primary-d:#1d4ed8; --primary-l:#e8f0fe;
+  --ok:#16a34a; --ok-l:#e7f6ec; --bad:#dc2626; --bad-l:#fdecec;
+  --warn:#d97706; --warn-l:#fdf3e3;
+  --radius:14px; --shadow:0 2px 10px rgba(23,43,77,.07),0 8px 28px rgba(23,43,77,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.65; font-size:15px;
+  min-height:100vh; padding-bottom:40px;
+}
+a{color:var(--primary)}
+.topbar{
+  position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(180%) blur(10px); border-bottom:1px solid var(--line);
+}
+.topbar-in{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:16px;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+.brand .logo{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#22c1a4);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:800}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.nav button{
+  border:1px solid transparent;background:transparent;color:var(--muted);font-size:14px;font-weight:600;
+  padding:6px 12px;border-radius:999px;cursor:pointer;font-family:inherit
+}
+.nav button:hover{background:#f1f5fb;color:var(--ink)}
+.nav button.on{background:var(--primary-l);color:var(--primary-d)}
+.wrap{max-width:960px;margin:0 auto;padding:18px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px;margin-bottom:16px}
+h1{font-size:22px;margin:2px 0 6px}
+h2{font-size:17px;margin:0 0 10px}
+h3{font-size:15px;margin:14px 0 6px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.hero{background:linear-gradient(135deg,#1e40af,#2563eb 45%,#0ea5a4);color:#fff;border:none}
+.hero h1{color:#fff;font-size:24px}
+.hero p{color:rgba(255,255,255,.9);margin:6px 0 14px}
+.pill{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;margin:0 6px 6px 0}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);font-family:inherit;font-size:14px;font-weight:600;padding:10px 16px;border-radius:10px;cursor:pointer;transition:.15s}
+.btn:hover{border-color:#cfd8e6;background:#fafbfe}
+.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn.primary:hover{background:var(--primary-d)}
+.btn.ghost{background:transparent}
+.btn.sm{padding:7px 12px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.grid{display:grid;gap:12px}
+.grid.c2{grid-template-columns:repeat(2,1fr)}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:720px){.grid.c4,.grid.c3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:430px){.grid.c2{grid-template-columns:1fr}}
+.tile{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;cursor:pointer;transition:.15s;text-align:left}
+.tile:hover{border-color:#bcd0f2;transform:translateY(-1px);box-shadow:var(--shadow)}
+.tile .big{font-size:24px;font-weight:800;color:var(--primary-d)}
+.tile .t{font-weight:700;margin-bottom:2px}
+.tile.sel{border-color:var(--primary);background:var(--primary-l)}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;font-family:inherit}
+.chip.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.badge{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px;margin-right:6px}
+.badge.t-single{background:#e8f0fe;color:#1d4ed8}
+.badge.t-multi{background:#fdf3e3;color:#b45309}
+.badge.t-judge{background:#e7f6ec;color:#15803d}
+.badge.t-blank{background:#f3e8fd;color:#7e22ce}
+.badge.t-case{background:#fdecec;color:#b91c1c}
+.badge.lv{background:#f1f5f9;color:#475569}
+.progress{height:8px;background:#e8edf5;border-radius:999px;overflow:hidden}
+.progress>i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#22c1a4);width:0;transition:width .25s}
+.qhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.qstem{font-size:16px;font-weight:600;margin:6px 0 14px;white-space:pre-wrap}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;cursor:pointer;transition:.12s;background:#fff}
+.opt:hover{border-color:#bcd0f2;background:#fafcff}
+.opt .mk{flex:0 0 24px;height:24px;border-radius:50%;border:1.5px solid #cbd5e1;display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--muted);background:#fff}
+.opt.multi .mk{border-radius:7px}
+.opt.pick{border-color:var(--primary);background:var(--primary-l)}
+.opt.pick .mk{border-color:var(--primary);background:var(--primary);color:#fff}
+.opt.right{border-color:var(--ok);background:var(--ok-l)}
+.opt.right .mk{border-color:var(--ok);background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-l)}
+.opt.wrong .mk{border-color:var(--bad);background:var(--bad);color:#fff}
+.opt.dis{cursor:default}
+.opt.dis:hover{border-color:var(--line);background:#fff}
+.opt.right.dis:hover{border-color:var(--ok);background:var(--ok-l)}
+.opt.wrong.dis:hover{border-color:var(--bad);background:var(--bad-l)}
+.explain{border-left:4px solid var(--primary);background:#f7faff;border-radius:0 10px 10px 0;padding:11px 14px;margin-top:12px;font-size:14px}
+.explain.ok{border-color:var(--ok);background:var(--ok-l)}
+.explain.bad{border-color:var(--bad);background:var(--bad-l)}
+.explain b{font-weight:800}
+.tag{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:6px;padding:2px 8px}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:16px}
+input[type=text],[type=number]{
+  font-family:inherit;font-size:15px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;width:100%;background:#fff
+}
+input[type=text]:focus,[type=number]:focus{outline:none;border-color:var(--primary)}
+.blanks{display:flex;flex-direction:column;gap:10px}
+.blankrow{display:flex;gap:10px;align-items:center}
+.blankrow .idx{flex:0 0 auto;font-weight:700;color:var(--muted);font-size:13px}
+.ansbox{border:1px dashed #cbd5e1;border-radius:10px;padding:10px 12px;background:#fbfcfe;margin-top:10px;font-size:14px}
+.ansbox b{color:var(--primary-d)}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kv:last-child{border:none}
+.statnum{font-size:26px;font-weight:800;color:var(--primary-d);line-height:1.2}
+.jump{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.jump button{aspect-ratio:1;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;color:var(--muted)}
+.jump button.ok{background:var(--ok-l);border-color:#a7e0bb;color:#15803d}
+.jump button.no{background:var(--bad-l);border-color:#f2b8b8;color:#b91c1c}
+.jump button.cur{outline:2px solid var(--primary);outline-offset:1px;color:var(--primary-d)}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;color:var(--primary-d)}
+.hide{display:none!important}
+.notice{background:var(--warn-l);border:1px solid #f3d9a4;color:#92400e;border-radius:10px;padding:10px 12px;font-size:13.5px}
+.tips li{margin:5px 0}
+details{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:10px;background:#fff}
+summary{cursor:pointer;font-weight:700}
+.foot{text-align:center;color:var(--muted);font-size:12.5px;padding:22px 16px 8px}
+.score-ring{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;margin:0 auto 10px;background:conic-gradient(var(--ok) 0deg, var(--ok) 0deg, #e8edf5 0deg);position:relative}
+.score-ring::after{content:'';position:absolute;inset:11px;background:#fff;border-radius:50%}
+.score-ring .v{position:relative;z-index:1;font-size:30px;font-weight:800;color:var(--primary-d)}
+
+/* ===== 导出／打印（错题集） ===== */
+#printarea{display:none}
+#printarea .sheet{color:#111;font-size:12.5px;line-height:1.62}
+#printarea h1{font-size:19px;margin:0 0 4px;color:#111}
+#printarea h2{font-size:15px;margin:14px 0 6px;color:#111}
+.sheet-sub{color:#555;font-size:11.5px;margin-bottom:12px;border-bottom:1px solid #d8d8d8;padding-bottom:8px}
+.pq{margin:0 0 12px;padding-bottom:9px;border-bottom:1px dotted #cfcfcf}
+.pq-h{margin-bottom:3px}
+.pq-meta{font-size:11px;color:#555}
+.pq-stem{margin:3px 0 5px;font-weight:600}
+.pq-opts div{margin-left:6px}
+.pq-note{color:#666;font-style:italic}
+.pq-ans{margin-top:6px;background:#f2f6ff;border-left:3px solid #2563eb;padding:6px 9px;font-size:11.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pq-ans b{color:#1d4ed8}
+@media print{
+  .topbar,.foot,.no-print,.nav{display:none!important}
+  #app{display:none!important}
+  #printarea{display:block!important}
+  body{background:#fff;padding:0;font-size:12.5px}
+  .pq{break-inside:avoid;page-break-inside:avoid}
+  h1,h2{break-after:avoid;page-break-after:avoid}
+  @page{margin:14mm}
+}
+
+/* ===== 移动端适配（手机 / 平板 / 添加到主屏幕） ===== */
+@media(max-width:760px){
+  html{-webkit-text-size-adjust:100%}
+  .topbar{padding-top:env(safe-area-inset-top)}
+  .topbar-in{padding:8px 12px;gap:8px}
+  .brand{font-size:15px;max-width:100%}
+  .brand>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* 导航改成单行横向滑动，避免换行把顶栏撑高遮住内容 */
+  .nav{width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+       -webkit-overflow-scrolling:touch;scrollbar-width:none;gap:4px;padding:1px 0 3px}
+  .nav::-webkit-scrollbar{display:none}
+  .nav button{flex:0 0 auto;white-space:nowrap;padding:8px 13px;font-size:13.5px;min-height:40px}
+  .wrap{padding:12px calc(12px + env(safe-area-inset-left)) 72px calc(12px + env(safe-area-inset-right))}
+  .card{padding:15px 13px;border-radius:12px}
+  h1{font-size:20px}
+  .hero{padding:22px 18px;border-radius:16px}
+  .hero h1{font-size:21px}
+  .btn{padding:11px 15px;min-height:44px}
+  .btn.sm{padding:9px 12px;min-height:40px;font-size:13px}
+  .chip{padding:8px 14px;min-height:38px}
+  /* 表单控件 ≥16px 可避免 iOS 聚焦时自动放大 */
+  input[type=text],[type=number],input[type=email],input[type=date],textarea,select{font-size:16px}
+  /* 表格：外层横向滚动，不再撑破页面 */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1px solid var(--line)}
+  .tbl-wrap>table{margin:0;border:0}
+  table{font-size:13px}
+  th,td{padding:6px 8px}
+  .grid.c3,.grid.c4{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3{grid-template-columns:1fr}
+  .score-ring{width:118px;height:118px}
+  .foot{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+}
+@media(max-width:520px){
+  .grid.c2,.grid.c3,.grid.c4,.g2,.g3{grid-template-columns:1fr!important}
+  .nav button{padding:8px 12px;font-size:13px}
+  .wrap{padding-left:calc(10px + env(safe-area-inset-left));padding-right:calc(10px + env(safe-area-inset-right))}
+}
+@media print{.tbl-wrap{overflow:visible!important;border:0!important}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <div class="brand"><span class="logo">Q</span><span>ISO 9001 内审员刷题库</span></div>
+  <nav class="nav" id="nav">
+    <button data-go="home" class="on">首页</button>
+    <button data-go="practice">练习</button>
+    <button data-go="exam">模拟考</button>
+    <button data-go="wrong">错题本 <span id="nav-wrong"></span></button>
+    <button data-go="fav">收藏 <span id="nav-fav"></span></button>
+    <button data-go="stats">统计</button>
+  </nav>
+</div></div>
+
+<div class="wrap" id="app"></div>
+<div class="foot">ISO 9001:2015 / GB-T 19001-2016 · 内审员学习自测工具 · 数据保存在本机浏览器</div>
+
+<script>/* ===== bank-single.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 单选题 */
+var BANK_SINGLE = [
+{id:'S001',ch:'4',topic:'组织环境',lv:1,stem:'组织应确定与其宗旨和战略方向相关、并影响其实现质量管理体系预期结果能力的（　）。',options:['内部因素','外部因素','内部和外部因素','相关方需求'],answer:[2],explain:'4.1 要求确定各种外部和内部因素，二者都要考虑，不能只取其一。',ref:'4.1'},
+{id:'S002',ch:'4',topic:'相关方',lv:1,stem:'"理解相关方的需求和期望"条款中，组织应确定相关方及其（　）。',options:['全部要求','与质量管理体系有关的要求','所有潜在期望','合同要求'],answer:[1],explain:'4.2 只要求确定"与质量管理体系有关的相关方"及其"有关要求"，不是无限制的全部要求。',ref:'4.2'},
+{id:'S003',ch:'4',topic:'体系范围',lv:1,stem:'质量管理体系的范围应（　），并作为成文信息可获得和保持。',options:['口头说明','予以确定并保持','由顾客确定','由咨询机构确定'],answer:[1],explain:'4.3 组织应确定QMS的边界和适用性，范围应可获得并保持为成文信息。',ref:'4.3'},
+{id:'S004',ch:'4',topic:'体系及过程',lv:1,stem:'组织应按照本标准建立、实施、保持和持续改进质量管理体系，包括所需过程及其相互作用，属于（　）。',options:['4.1','4.2','4.3','4.4'],answer:[3],explain:'4.4 质量管理体系及其过程。',ref:'4.4'},
+{id:'S005',ch:'5',topic:'领导作用',lv:1,stem:'最高管理者应证实其对质量管理体系的（　）。',options:['参与','领导作用和承诺','监督','检查'],answer:[1],explain:'5.1.1 领导作用和承诺——总则。',ref:'5.1.1'},
+{id:'S006',ch:'5',topic:'以顾客为关注焦点',lv:2,stem:'最高管理者应以顾客为关注焦点，其根本目的是（　）。',options:['提高产量','增强顾客满意','降低人工成本','减少投诉数量'],answer:[1],explain:'5.1.2 要求始终致力于增强顾客满意，而不是把"投诉数量"当目标。',ref:'5.1.2'},
+{id:'S007',ch:'5',topic:'质量方针',lv:1,stem:'质量方针应：与组织的宗旨相适应；提供制定质量目标的框架；包括对满足适用要求的承诺；以及（　）。',options:['包括对持续改进的承诺','由顾客批准','包括成本目标','每年修订'],answer:[0],explain:'5.2.1 质量方针四项内容：适应宗旨、提供目标框架、满足要求承诺、持续改进承诺。',ref:'5.2.1'},
+{id:'S008',ch:'5',topic:'质量方针',lv:1,stem:'质量方针应（　），并为其沟通提供条件，在组织内得到沟通、理解和应用。',options:['以成文信息的形式保持','仅口头传达','张贴在门口即可','对外保密'],answer:[0],explain:'5.2.2 沟通质量方针：应保持成文信息，可获取，在组织内沟通、理解、应用，适当时可为相关方获取。',ref:'5.2.2'},
+{id:'S009',ch:'5',topic:'职责权限',lv:1,stem:'最高管理者应确保组织内相关岗位的职责和权限得到（　）。',options:['分配、沟通和理解','书面存档','公示','上报'],answer:[0],explain:'5.3 组织的岗位、职责和权限：应分配、沟通和理解。',ref:'5.3'},
+{id:'S010',ch:'6',topic:'风险和机遇',lv:1,stem:'"应对风险和机遇的措施"属于标准的（　）。',options:['5.1','6.1','7.1','8.1'],answer:[1],explain:'6.1 应对风险和机遇的措施。',ref:'6.1'},
+{id:'S011',ch:'6',topic:'风险和机遇',lv:1,stem:'在策划质量管理体系时，组织应考虑到4.1所提及的因素和4.2所提及的要求，并确定需要应对的（　）。',options:['风险和机遇','成本','人员','设备'],answer:[0],explain:'6.1.1 确定需要应对的风险和机遇，为QMS实现预期结果提供保证。',ref:'6.1.1'},
+{id:'S012',ch:'6',topic:'质量目标',lv:1,stem:'质量目标应（　），与质量方针保持一致。',options:['可测量','越高越好','尽量模糊以留余地','由顾客制定'],answer:[0],explain:'6.2.1 质量目标应可测量、与方针一致、考虑适用要求、与合格及顾客满意相关、可监视、可沟通、适时更新。',ref:'6.2.1'},
+{id:'S013',ch:'6',topic:'质量目标',lv:1,stem:'策划如何实现质量目标时，组织应确定"做什么、需要什么资源、由谁负责、何时完成、如何评价结果"，属于（　）。',options:['6.2.2','6.3','7.1','9.1'],answer:[0],explain:'6.2.2 质量目标及其实现的策划，要求做出"5W"式安排。',ref:'6.2.2'},
+{id:'S014',ch:'6',topic:'变更策划',lv:2,stem:'当组织确定需要对质量管理体系进行变更时，应对变更进行（　）。',options:['策划','隐瞒','简化','删除'],answer:[0],explain:'6.3 变更的策划：目的及潜在后果、体系完整性和持续有效、资源可获得性、职责和权限的分配或再分配。',ref:'6.3'},
+{id:'S015',ch:'7',topic:'资源',lv:1,stem:'组织应确定并提供建立、实施、保持和持续改进质量管理体系所需的（　）。',options:['资源','罚款','订单','竞争对手'],answer:[0],explain:'7.1.1 资源——总则。',ref:'7.1.1'},
+{id:'S016',ch:'7',topic:'人员',lv:1,stem:'组织应确定并提供所需的人员，用以实施质量管理体系并（　）。',options:['编写标准','运行和控制其过程','制定法律法规','监督顾客'],answer:[1],explain:'7.1.2 人员：实施QMS并运行和控制其过程所需的人员。',ref:'7.1.2'},
+{id:'S017',ch:'7',topic:'基础设施',lv:2,stem:'基础设施可包括建筑物、工作场所和相关设施、设备（含硬件和软件），以及（　）。',options:['运输资源','顾客的财产','员工的私家车','供方的厂房'],answer:[0],explain:'7.1.3 基础设施包括：a)建筑物、工作场所和相关设施；b)设备（含硬件和软件）；c)运输资源；d)信息和通信技术。',ref:'7.1.3'},
+{id:'S018',ch:'7',topic:'测量资源',lv:1,stem:'测量设备应（　），确保其测量结果有效。',options:['定期清洗','进行校准和/或检定（或二者兼有），必要时进行调整','更新换代','报修'],answer:[1],explain:'7.1.5.2 测量溯源：校准和/或检定、标识、防护、防止失效或损坏，保留成文信息。',ref:'7.1.5.2'},
+{id:'S019',ch:'7',topic:'测量资源',lv:2,stem:'当测量设备不符合要求时，组织应确定以往测量结果的有效性，并（　）。',options:['立即报废设备','采取适当措施','罚款责任人','忽略不管'],answer:[1],explain:'7.1.5.2 出现不符合时应确定以往结果的有效性并采取适当措施（如追回、重新评价）。',ref:'7.1.5.2'},
+{id:'S020',ch:'7',topic:'组织知识',lv:2,stem:'"组织的知识"是（　）所需的、由组织专有的知识。',options:['生产','运行过程、实现产品和服务的符合性','销售','财务'],answer:[1],explain:'7.1.6 组织的知识：为运行过程、实现产品和服务的符合性所需的、组织专有的知识。',ref:'7.1.6'},
+{id:'S021',ch:'7',topic:'能力',lv:1,stem:'组织应确定在其控制下工作的人员所需具备的（　）。',options:['能力','背景','学历','年龄'],answer:[0],explain:'7.2 能力：确定能力要求→确保胜任（教育、培训或经历）→采取措施获得能力→保留成文信息。',ref:'7.2'},
+{id:'S022',ch:'7',topic:'意识',lv:1,stem:'组织应确保工作人员（　）质量方针、相关质量目标、他们对质量管理体系有效性的贡献以及不符合要求的后果。',options:['知晓并理解','抄写','背诵','转移'],answer:[0],explain:'7.3 意识：知晓并理解方针、目标、贡献与后果。',ref:'7.3'},
+{id:'S023',ch:'7',topic:'沟通',lv:1,stem:'组织应确定与质量管理体系相关的内部和外部（　），包括沟通什么、何时沟通、与谁沟通、如何沟通以及由谁沟通。',options:['沟通','审计','检查','培训'],answer:[0],explain:'7.4 沟通：5W1H 式确定沟通内容、时机、对象、方式、主体。',ref:'7.4'},
+{id:'S024',ch:'7',topic:'成文信息',lv:1,stem:'在创建和更新成文信息时，组织应确保适当的（　）和适宜性。',options:['标识和说明（如标题、日期、作者、索引编号）','数量','颜色','页数'],answer:[0],explain:'7.5.2 应确保标识和说明、格式和载体、评审和批准（适宜性和充分性）。',ref:'7.5.2'},
+{id:'S025',ch:'7',topic:'成文信息',lv:1,stem:'质量管理体系所需的成文信息应予以（　）。',options:['控制','公开','销毁','出租'],answer:[0],explain:'7.5.3.1 成文信息的控制。',ref:'7.5.3.1'},
+{id:'S026',ch:'8',topic:'运行策划',lv:2,stem:'8.1中，组织应策划、实施和控制满足产品和服务要求所需的过程，并通过采取措施应对（　）以及评审这些措施的效果来进行控制。',options:['6.1所确定的措施','顾客投诉','市场竞争','员工流失'],answer:[0],explain:'8.1 运行策划和控制：应对6.1确定的措施，并把措施整合进过程。',ref:'8.1'},
+{id:'S027',ch:'8',topic:'顾客沟通',lv:1,stem:'与顾客沟通的内容不包括（　）。',options:['提供有关产品和服务的信息','处理顾客的问询、合同或订单（含更改）','获取顾客对产品和服务的反馈（含投诉）','顾客的内部人事安排'],answer:[3],explain:'8.2.1 顾客沟通：产品服务信息、问询/合同/订单处理、顾客反馈（含投诉）、顾客财产处理、应急措施的特定要求。',ref:'8.2.1'},
+{id:'S028',ch:'8',topic:'要求评审',lv:1,stem:'组织在承诺向顾客提供产品和服务之前，应评审（　）。',options:['与产品和服务有关的要求','竞争对手的方案','员工的能力','设备的寿命'],answer:[0],explain:'8.2.3 评审要求：要求已规定、与以前表述不一致处已解决、组织有能力满足。',ref:'8.2.3'},
+{id:'S029',ch:'8',topic:'要求更改',lv:1,stem:'若顾客要求发生更改，组织应确保相关人员（　）。',options:['知晓已更改的要求','停止工作','重新招标','上报总部'],answer:[0],explain:'8.2.4 产品和服务要求的更改：确保相关人员知晓更改的要求，并保留成文信息。',ref:'8.2.4'},
+{id:'S030',ch:'8',topic:'设计开发',lv:1,stem:'设计和开发中，组织应确定设计和开发的（　）。',options:['阶段和所需的控制','预算','人数','办公地点'],answer:[0],explain:'8.3.2 设计和开发策划：阶段、评审/验证/确认活动、职责权限、接口、顾客与使用者参与、后续要求、控制水平。',ref:'8.3.2'},
+{id:'S031',ch:'8',topic:'设计输入',lv:1,stem:'设计和开发输入应（　），且完整、清楚。',options:['充分适宜','越少越好','由供方提供','永久保密'],answer:[0],explain:'8.3.3 设计和开发输入应充分适宜、完整清楚、不相互矛盾；包括功能性能要求、适用法规、标准或规范、以往类似设计的经验教训。',ref:'8.3.3'},
+{id:'S032',ch:'8',topic:'设计控制',lv:1,stem:'设计和开发过程中，应实施（　），以确保设计和开发输出满足输入要求。',options:['评审','处罚','招标','隔离'],answer:[0],explain:'8.3.4 设计和开发控制：按策划实施评审、验证、确认活动。',ref:'8.3.4'},
+{id:'S033',ch:'8',topic:'设计输出',lv:1,stem:'设计和开发输出应满足（　）要求。',options:['输入','顾客的额外','领导的','供方的'],answer:[0],explain:'8.3.5 设计和开发输出应满足输入要求、足以用于后续过程、包括接收准则或引用、规定产品和服务安全使用的特性。',ref:'8.3.5'},
+{id:'S034',ch:'8',topic:'设计更改',lv:1,stem:'组织应对设计和开发更改进行（　），以确保对产品和服务符合性无不利影响。',options:['识别、评审和控制','忽略','简化','收费'],answer:[0],explain:'8.3.6 设计和开发更改：识别、评审、控制，保留成文信息（更改、评审人员、授权、必要措施）。',ref:'8.3.6'},
+{id:'S035',ch:'8',topic:'外部提供',lv:1,stem:'对外部提供的过程、产品和服务的控制，组织应确定（　）以及实施的控制。',options:['控制类型和程度','供方的注册资本','供方的员工人数','供方的厂址'],answer:[0],explain:'8.4.1 确定对外部提供的过程、产品和服务以及外部供方的控制类型和程度。',ref:'8.4.1'},
+{id:'S036',ch:'8',topic:'外部供方',lv:1,stem:'组织应确定并实施外部供方的（　）准则。',options:['评价、选择、绩效监视和再评价','罚款','培训','广告'],answer:[0],explain:'8.4.1 外部供方的评价、选择、绩效监视和再评价准则。',ref:'8.4.1'},
+{id:'S037',ch:'8',topic:'生产控制',lv:2,stem:'8.5.1中，组织应在受控条件下进行生产和服务提供，受控条件可包括可获得成文信息、可获得和使用适宜的监视和测量资源、在适当阶段实施监视和测量活动、以及（　）。',options:['配备胜任的人员，包括所要求的任何资格','安排加班','实施罚款','持续招聘'],answer:[0],explain:'8.5.1 受控条件还包括：使用适宜的基础设施和过程环境、配备胜任人员（含资格）、采取措施防止人为错误、实施放行/交付/交付后活动。',ref:'8.5.1'},
+{id:'S038',ch:'8',topic:'可追溯性',lv:1,stem:'当有可追溯性要求时，组织应控制输出的（　）并保留成文信息。',options:['唯一性标识','价格','重量','颜色'],answer:[0],explain:'8.5.2 标识和可追溯性：识别输出、识别监视和测量状态、控制唯一性标识并保留成文信息。',ref:'8.5.2'},
+{id:'S039',ch:'8',topic:'顾客财产',lv:1,stem:'顾客或外部供方的财产被损坏、丢失或发现其不适用时，组织应向（　）报告。',options:['顾客或外部供方','全体员工','政府部门','银行'],answer:[0],explain:'8.5.3 顾客或外部供方的财产：应爱护并识别、验证、保护和维护；损坏丢失或不适用应向所有者报告并保留成文信息。',ref:'8.5.3'},
+{id:'S040',ch:'8',topic:'交付后活动',lv:1,stem:'组织应满足与产品和服务有关的（　）要求。',options:['交付后活动','内部考勤','股东分红','环保税'],answer:[0],explain:'8.5.5 交付后的活动：满足交付后活动要求，如保修、维护、最终处置等。',ref:'8.5.5'},
+{id:'S041',ch:'8',topic:'更改控制',lv:1,stem:'组织应确保对生产和服务提供的更改进行必要的（　），以确保持续符合要求。',options:['评审和控制','隐瞒','加速','减免'],answer:[0],explain:'8.5.6 生产和服务提供更改的控制：评审和控制未经策划的更改，评审更改的潜在后果，必要时采取措施。',ref:'8.5.6'},
+{id:'S042',ch:'8',topic:'放行',lv:1,stem:'组织应对产品和服务放行的（　）做出安排，以证实满足要求。',options:['策划','收费','招标','保密'],answer:[0],explain:'8.6 产品和服务的放行：按策划的安排验证要求已满足；除非得到有关授权人员批准或顾客批准，否则不应放行。',ref:'8.6'},
+{id:'S043',ch:'8',topic:'不合格输出',lv:1,stem:'对不合格输出，组织应（　）并防止其非预期的使用或交付。',options:['予以识别和控制','直接交付','打折出售','忽略'],answer:[0],explain:'8.7 不合格输出的控制：识别和控制，防止非预期使用或交付。',ref:'8.7'},
+{id:'S044',ch:'8',topic:'不合格输出',lv:2,stem:'不合格输出经纠正（如返工）后，应（　）其符合性。',options:['验证','重新销售','忽略','直接报废'],answer:[0],explain:'8.7.1 d) 对不合格输出进行纠正之后应验证其是否符合要求。',ref:'8.7.1'},
+{id:'S045',ch:'9',topic:'监视测量',lv:1,stem:'9.1.1中，组织应确定需要监视和测量的对象、方法、时机以及（　）。',options:['监视和测量结果的分析和评价','设备价格','人员工资','厂房面积'],answer:[0],explain:'9.1.1 总则：确定对象、方法、时机、分析和评价结果；评价QMS绩效和有效性。',ref:'9.1.1'},
+{id:'S046',ch:'9',topic:'顾客满意',lv:1,stem:'组织应监视顾客对其需求和期望已得到满足程度的感受，即（　）。',options:['顾客满意','顾客投诉','顾客数量','顾客资产'],answer:[0],explain:'9.1.2 顾客满意：监视顾客感受，确定获取、监视和评审这些信息的方法。',ref:'9.1.2'},
+{id:'S047',ch:'9',topic:'分析评价',lv:1,stem:'组织应分析和评价监视、测量的（　）。',options:['数据','成本','计划','人员'],answer:[0],explain:'9.1.3 分析与评价：评价产品和服务符合性、顾客满意程度、QMS绩效和有效性、策划是否有效实施、风险机遇措施的有效性、外部供方绩效、体系改进需求。',ref:'9.1.3'},
+{id:'S048',ch:'9',topic:'内部审核',lv:1,stem:'内部审核的目的是确定质量管理体系是否符合组织自身对质量管理体系的（　）以及本标准的要求。',options:['规定的要求','价格要求','广告要求','数量要求'],answer:[0],explain:'9.2.1 内部审核——总则：验证是否符合组织自身对QMS规定的要求和本标准的要求，并得到有效实施和保持。',ref:'9.2.1'},
+{id:'S049',ch:'9',topic:'审核方案',lv:2,stem:'组织应按策划的时间间隔进行内部审核，审核方案应考虑所涉及过程的（　）。',options:['重要程度、对组织产生影响的变化和以往审核的结果','价格','人数','面积'],answer:[0],explain:'9.2.2 审核方案：考虑过程重要程度、影响变化、以往审核结果。',ref:'9.2.2'},
+{id:'S050',ch:'9',topic:'内部审核',lv:1,stem:'内审员的选择和审核的实施应确保审核过程的（　）。',options:['客观性和公正性','速度','费用','数量'],answer:[0],explain:'9.2.2 要求确保审核过程的客观性和公正性（审核员不应审核自己的工作）。',ref:'9.2.2'},
+{id:'S051',ch:'9',topic:'管理评审',lv:1,stem:'管理评审应由（　）实施。',options:['最高管理者','普通内审员','质检员','采购员'],answer:[0],explain:'9.3.1 管理评审——总则：最高管理者应按策划的时间间隔评审QMS，确保持续适宜、充分和有效。',ref:'9.3.1'},
+{id:'S052',ch:'9',topic:'管理评审输入',lv:2,stem:'以下不属于管理评审输入的是（　）。',options:['以往管理评审所采取措施的状况','顾客满意和相关方的反馈','过程绩效以及产品和服务的符合性','员工的家庭情况'],answer:[3],explain:'9.3.2 输入共7大类，不含与QMS无关的员工个人隐私信息。',ref:'9.3.2'},
+{id:'S053',ch:'9',topic:'管理评审输出',lv:1,stem:'管理评审的输出应包括（　）的决定和措施。',options:['改进的机会、质量管理体系所需的变更、资源需求','工资调整','分红方案','广告计划'],answer:[0],explain:'9.3.3 管理评审输出：a)改进机会；b)QMS所需变更；c)资源需求。',ref:'9.3.3'},
+{id:'S054',ch:'10',topic:'改进总则',lv:1,stem:'组织应确定并选择（　），以改进产品和服务，满足要求并增强顾客满意。',options:['改进的机会','惩罚措施','广告机会','罚没收入'],answer:[0],explain:'10.1 改进——总则：确定和选择改进机会并实施必要措施。',ref:'10.1'},
+{id:'S055',ch:'10',topic:'纠正措施',lv:2,stem:'当出现不合格时，组织应采取措施控制和纠正不合格，评价是否需要采取措施消除不合格的（　），以防止其再次发生或在其他地方发生。',options:['原因','现象','结果','记录'],answer:[0],explain:'10.2 不合格和纠正措施：消除原因以防止再发生（纠正措施），与"纠正"（处置现有不合格）不同。',ref:'10.2'}
+];
+
+/* ===== bank-multi.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 多选题 */
+var BANK_MULTI = [
+{id:'M001',ch:'0',topic:'质量管理原则',lv:1,stem:'下列属于七项质量管理原则的有（　）。',options:['以顾客为关注焦点','领导作用','全员积极参与','过程方法','成本最低化'],answer:[0,1,2,3],explain:'七项原则：以顾客为关注焦点、领导作用、全员积极参与、过程方法、改进、循证决策、关系管理。"成本最低化"不是原则。',ref:'ISO 9000 质量管理原则'},
+{id:'M002',ch:'4',topic:'外部因素',lv:1,stem:'确定组织的外部因素时，可考虑（　）。',options:['法律法规','技术','竞争','文化、社会和经济环境'],answer:[0,1,2,3],explain:'4.1 外部因素举例包括法律法规、技术、竞争、市场、文化、社会和经济环境，无论是国际的、国内的、区域的还是地方的。',ref:'4.1'},
+{id:'M003',ch:'4',topic:'内部因素',lv:1,stem:'确定组织的内部因素时，可考虑（　）。',options:['组织的价值观、文化','知识和绩效','组织的结构、角色和职责','顾客的银行账户余额'],answer:[0,1,2],explain:'4.1 内部因素如价值观、文化、知识、绩效、结构与职责等。',ref:'4.1'},
+{id:'M004',ch:'4',topic:'相关方',lv:1,stem:'与质量管理体系有关的相关方可包括（　）。',options:['顾客','供方','员工','监管机构'],answer:[0,1,2,3],explain:'4.2 相关方可包括顾客、最终使用者、供方、合作伙伴、员工、监管机构、投资者等。',ref:'4.2'},
+{id:'M005',ch:'5',topic:'领导作用',lv:1,stem:'最高管理者可通过以下方式证实领导作用和承诺（　）。',options:['对质量管理体系的有效性负责','确保制定质量方针和质量目标并与组织环境和战略方向相一致','确保质量管理体系要求融入组织的业务过程','促进使用过程方法和基于风险的思维'],answer:[0,1,2,3],explain:'5.1.1 还包括确保QMS获得所需资源；沟通有效管理的重要性；确保实现QMS预期结果；指导并支持人员做贡献；促进改进；支持其他管理者证实其领导作用。',ref:'5.1.1'},
+{id:'M006',ch:'5',topic:'质量方针',lv:1,stem:'质量方针应（　）。',options:['与组织的宗旨相适应','提供制定质量目标的框架','包括对满足适用要求的承诺','包括对持续改进的承诺'],answer:[0,1,2,3],explain:'5.2.1 质量方针的四项内容。',ref:'5.2.1'},
+{id:'M007',ch:'6',topic:'风险和机遇',lv:2,stem:'确定需要应对的风险和机遇时，组织应考虑（　）。',options:['4.1提及的外部因素','4.2提及的相关方要求','竞争对手员工的工资','可能影响产品和服务符合性、增强顾客满意的风险与机遇'],answer:[0,1,3],explain:'6.1.1：考虑4.1、4.2，并确定需应对的风险和机遇，以保证QMS实现预期结果、增强期望效果、预防或减少不利影响、实现改进。',ref:'6.1.1'},
+{id:'M008',ch:'6',topic:'质量目标',lv:1,stem:'质量目标应（　）。',options:['与质量方针保持一致','可测量','与产品和服务合格以及增强顾客满意相关','予以监视和沟通，适当时更新'],answer:[0,1,2,3],explain:'6.2.1 质量目标的要求。',ref:'6.2.1'},
+{id:'M009',ch:'6',topic:'质量目标',lv:2,stem:'策划质量目标的实现时，组织应确定（　）。',options:['要做什么','需要什么资源','由谁负责','何时完成以及如何评价结果'],answer:[0,1,2,3],explain:'6.2.2 质量目标及其实现的策划。',ref:'6.2.2'},
+{id:'M010',ch:'7',topic:'基础设施',lv:1,stem:'基础设施包括（　）。',options:['建筑物、工作场所和相关设施','设备，包括硬件和软件','运输资源','信息和通信技术'],answer:[0,1,2,3],explain:'7.1.3 基础设施四类。',ref:'7.1.3'},
+{id:'M011',ch:'7',topic:'运行环境',lv:1,stem:'过程运行环境可包括（　）。',options:['社会因素','心理因素','物理因素','顾客的家庭环境'],answer:[0,1,2],explain:'7.1.4 过程运行环境：为达到产品和服务符合性所需的环境，可包括社会、心理和物理因素的适当组合（如温度、湿度、照明、洁净度、噪声、防静电等）。',ref:'7.1.4'},
+{id:'M012',ch:'7',topic:'测量资源',lv:2,stem:'关于监视和测量资源，组织应（　）。',options:['确定并提供所需资源，确保监视和测量活动可行并适宜地实施','确保监视和测量资源适合其用途，得到维护','保留适当的成文信息作为监视和测量资源适宜性的证据','让所有员工随意使用测量设备'],answer:[0,1,2],explain:'7.1.5.1 总则：确定并提供资源、确保适宜并得到维护、保留成文信息。',ref:'7.1.5.1'},
+{id:'M013',ch:'7',topic:'成文信息',lv:2,stem:'对成文信息的控制，应确保（　）。',options:['在需要的场合和时机可获取并适宜使用','得到充分保护（如防止泄密、防止误用、保持完整性）','分发、访问、检索和使用，存储和防护，变更控制','保留和处置'],answer:[0,1,2,3],explain:'7.5.3.1 成文信息控制的内容。',ref:'7.5.3.1'},
+{id:'M014',ch:'8',topic:'顾客沟通',lv:1,stem:'8.2.1中，与顾客沟通的内容包括（　）。',options:['提供有关产品和服务的信息','处理顾客的问询、合同或订单（含更改）','获取顾客对产品和服务的反馈（含投诉）','处置或控制顾客财产'],answer:[0,1,2,3],explain:'8.2.1 还包括关系重大时制定应急措施的特定要求。',ref:'8.2.1'},
+{id:'M015',ch:'8',topic:'外部供方',lv:2,stem:'组织确定对外部供方控制的类型和程度时，应考虑（　）。',options:['外部提供的过程、产品和服务对组织稳定满足顾客要求和适用法规要求能力的潜在影响','外部供方的注册资本','外部供方所在地政府的补贴政策','由外部供方实施控制的有效性'],answer:[0,3],explain:'8.4.1 控制类型和程度取决于：a)对外部提供的过程、产品和服务对组织满足要求能力的潜在影响；b)由外部供方实施控制的有效性。',ref:'8.4.1'},
+{id:'M016',ch:'8',topic:'生产控制',lv:2,stem:'8.5.1中，受控条件可包括（　）。',options:['可获得成文信息，规定拟生产的产品、提供的服务或进行的活动的特性，以及拟获得的结果','可获得和使用适宜的监视和测量资源','在适当阶段实施监视和测量活动，以验证是否符合过程或输出的控制准则以及产品和服务的接收准则','采取措施防止人为错误'],answer:[0,1,2,3],explain:'8.5.1 受控条件还包括：使用适宜的基础设施和过程环境；配备胜任的人员（含资格）；实施放行、交付和交付后的活动。',ref:'8.5.1'},
+{id:'M017',ch:'8',topic:'标识追溯',lv:1,stem:'关于标识和可追溯性，组织应（　）。',options:['使用适当的方法识别输出','识别输出的监视和测量状态','当有可追溯性要求时，控制输出的唯一性标识并保留成文信息','仅在顾客要求时才需要标识'],answer:[0,1,2],explain:'8.5.2 标识和可追溯性。',ref:'8.5.2'},
+{id:'M018',ch:'8',topic:'防护',lv:2,stem:'8.5.4中，对输出的防护可包括（　）。',options:['标识','搬运','污染控制','包装、储存、传送、运输以及保护'],answer:[0,1,2,3],explain:'8.5.4 防护：生产和服务提供期间对输出进行防护，确保符合要求。',ref:'8.5.4'},
+{id:'M019',ch:'8',topic:'不合格输出',lv:2,stem:'对不合格输出，组织应通过以下方式处理（　）。',options:['纠正','隔离、限制使用、退回或暂停提供产品和服务','告知顾客','获得接收的授权'],answer:[0,1,2,3],explain:'8.7.1 处理不合格输出的方式。',ref:'8.7.1'},
+{id:'M020',ch:'9',topic:'监视测量',lv:1,stem:'9.1.1中，组织应确定（　）。',options:['需要监视和测量的对象','监视、测量、分析和评价的方法，以确保结果有效','实施监视和测量的时机','监视和测量结果的分析和评价'],answer:[0,1,2,3],explain:'9.1.1 总则。',ref:'9.1.1'},
+{id:'M021',ch:'9',topic:'顾客满意',lv:2,stem:'监视顾客满意可采取的方法包括（　）。',options:['顾客调查','顾客对交付产品和服务质量的反馈','与顾客沟通时获得的信息','顾客投诉、市场份额分析、顾客表扬'],answer:[0,1,2,3],explain:'9.1.2 注：顾客满意监视方法包括调查、反馈、沟通信息、投诉、赞扬、索赔、市场份额分析等。',ref:'9.1.2'},
+{id:'M022',ch:'9',topic:'审核方案',lv:1,stem:'策划审核方案时，组织应考虑（　）。',options:['所涉及过程的重要程度','对组织产生影响的变化','以往审核的结果','审核员的年龄'],answer:[0,1,2],explain:'9.2.2 策划审核方案应考虑过程重要程度、影响变化、以往审核结果。',ref:'9.2.2'},
+{id:'M023',ch:'9',topic:'内部审核',lv:1,stem:'实施内部审核时，组织应（　）。',options:['规定每次审核的准则和范围','选择审核员并实施审核，确保审核过程客观公正','确保将审核结果报告给相关管理者','保留成文信息，作为审核方案实施和审核结果的证据'],answer:[0,1,2,3],explain:'9.2.2 内部审核的实施要求。',ref:'9.2.2'},
+{id:'M024',ch:'9',topic:'评审输入',lv:2,stem:'管理评审输入应包括（　）。',options:['以往管理评审所采取措施的状况','与质量管理体系相关的内、外部问题的变化','质量管理体系绩效和有效性的信息，包括趋势','资源的充分性，以及应对风险和机遇所采取措施的有效性'],answer:[0,1,2,3],explain:'9.3.2 输入还包括：改进的机会；顾客满意和相关方的反馈；质量目标实现程度；过程绩效以及产品和服务符合性；不合格及纠正措施；监视和测量结果；审核结果；外部供方绩效。',ref:'9.3.2'},
+{id:'M025',ch:'9',topic:'评审输出',lv:1,stem:'管理评审输出应包括（　）。',options:['改进的机会','质量管理体系所需的变更','资源需求','员工工资调整方案'],answer:[0,1,2],explain:'9.3.3 管理评审输出三项。',ref:'9.3.3'},
+{id:'M026',ch:'10',topic:'纠正措施',lv:2,stem:'当出现不合格（含投诉）时，组织应（　）。',options:['对不合格做出应对，必要时采取措施予以控制和纠正，并处理后果','评价消除不合格原因的措施需求，以避免不合格再次发生或在其他地方出现','实施所需的措施','评审所采取的任何纠正措施的有效性'],answer:[0,1,2,3],explain:'10.2.1 还包括：必要时更新策划期间确定的风险和机遇；必要时变更QMS。',ref:'10.2.1'},
+{id:'M027',ch:'10',topic:'纠正措施',lv:1,stem:'对于不合格和纠正措施，组织应保留成文信息作为以下方面的证据（　）。',options:['不合格的性质以及随后所采取的任何措施','纠正措施的结果','员工的考勤记录','车间的卫生状况'],answer:[0,1],explain:'10.2.2 保留成文信息：a)不合格性质及随后措施；b)纠正措施的结果。',ref:'10.2.2'},
+{id:'M028',ch:'10',topic:'持续改进',lv:1,stem:'组织应确定和选择改进机会并实施必要措施，以（　）。',options:['改进产品和服务，以满足要求并增强顾客满意','纠正、预防或减少非预期影响','改进质量管理体系的绩效和有效性','降低产品售价'],answer:[0,1,2],explain:'10.3 持续改进：改进产品和服务、纠正/预防/减少非预期影响、改进QMS绩效和有效性。',ref:'10.3'},
+{id:'M029',ch:'0',topic:'PDCA',lv:2,stem:'按PDCA循环，"实施"（Do）主要对应标准的哪些章节？',options:['第7章 支持','第8章 运行','第1章 范围','第2章 规范性引用文件'],answer:[0,1],explain:'PDCA：P（策划）对应6；D（实施）对应7、8；C（检查）对应9；A（改进）对应10。',ref:'0.3.2 PDCA'},
+{id:'M030',ch:'0',topic:'过程方法',lv:2,stem:'关于过程方法，下列说法正确的有（　）。',options:['将活动作为相互关联、相互影响的过程组成的体系来理解和管理','按照组织的质量方针和战略方向，对各过程及其相互作用进行系统的规定和管理','有助于提高体系的有效性和效率','过程方法与基于风险的思维相互补充'],answer:[0,1,2,3],explain:'过程方法强调对过程及其相互作用的系统管理；与基于风险的思维相辅相成。',ref:'0.3 过程方法'}
+];
+
+/* ===== bank-judge.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 判断题 */
+var BANK_JUDGE = [
+{id:'J001',ch:'0',topic:'标准性质',lv:1,stem:'ISO 9001:2015 是质量管理体系要求性标准，用于组织证实其有能力稳定提供满足顾客和适用法律法规要求的产品和服务。',answer:[0],explain:'正确。ISO 9001 是"要求"标准，可用于认证和证实能力。',ref:'引言/1 范围'},
+{id:'J002',ch:'0',topic:'标准性质',lv:2,stem:'ISO 9001:2015 标准直接规定了对产品和服务本身的技术要求。',answer:[1],explain:'错误。标准规定的是对质量管理体系的要求，不规定产品和服务本身的技术要求。',ref:'1 范围'},
+{id:'J003',ch:'0',topic:'质量管理原则',lv:1,stem:'质量管理原则共有七项。',answer:[0],explain:'正确。以顾客为关注焦点、领导作用、全员积极参与、过程方法、改进、循证决策、关系管理。',ref:'ISO 9000'},
+{id:'J004',ch:'5',topic:'以顾客为关注焦点',lv:1,stem:'"以顾客为关注焦点"就是一切以顾客满意为唯一目标，可以不必考虑适用的法律法规要求。',answer:[1],explain:'错误。应满足并持续满足顾客要求和适用的法律法规要求，二者不可偏废。',ref:'5.1.2'},
+{id:'J005',ch:'5',topic:'领导作用',lv:2,stem:'领导作用要求最高管理者必须亲自操作组织的每一个具体过程。',answer:[1],explain:'错误。领导作用体现在对体系有效性负责、提供资源、促进过程方法和风险思维等，不是替员工做所有具体工作。',ref:'5.1.1'},
+{id:'J006',ch:'5',topic:'全员参与',lv:1,stem:'全员积极参与要求组织内各层级人员参与，是提高组织创造和提供价值能力必不可少的。',answer:[0],explain:'正确。',ref:'ISO 9000'},
+{id:'J007',ch:'4',topic:'体系范围',lv:1,stem:'质量管理体系的范围应予以确定，并作为成文信息可获得和保持。',answer:[0],explain:'正确。',ref:'4.3'},
+{id:'J008',ch:'7',topic:'成文信息',lv:2,stem:'ISO 9001:2015 强制要求组织必须建立并保持一本"质量手册"。',answer:[1],explain:'错误。2015版不再强制要求质量手册，只要求"保持和保留"必要的成文信息。',ref:'7.5'},
+{id:'J009',ch:'4',topic:'相关方',lv:1,stem:'组织应确定与质量管理体系有关的相关方及其要求，并监视和评审这些相关方及其要求的相关信息。',answer:[0],explain:'正确。',ref:'4.2'},
+{id:'J010',ch:'5',topic:'领导作用',lv:1,stem:'最高管理者应促进在整个组织内使用过程方法和基于风险的思维。',answer:[0],explain:'正确（5.1.1 d）。',ref:'5.1.1'},
+{id:'J011',ch:'5',topic:'质量方针',lv:2,stem:'质量方针只要最高管理者知晓即可，不必在组织内沟通。',answer:[1],explain:'错误。方针应在组织内得到沟通、理解和应用，并以成文信息形式保持、可获取。',ref:'5.2.2'},
+{id:'J012',ch:'5',topic:'质量方针',lv:1,stem:'质量方针应为制定质量目标提供框架。',answer:[0],explain:'正确。',ref:'5.2.1'},
+{id:'J013',ch:'6',topic:'质量目标',lv:2,stem:'质量目标必须是可以用数字表示的定量指标。',answer:[1],explain:'错误。标准要求目标"可测量"，可以是定量的，也可以是定性的（有可判定的准则）。',ref:'6.2.1'},
+{id:'J014',ch:'6',topic:'质量目标',lv:1,stem:'质量目标应予以监视、沟通，并在适当时予以更新。',answer:[0],explain:'正确。',ref:'6.2.1'},
+{id:'J015',ch:'6',topic:'风险和机遇',lv:2,stem:'"应对风险和机遇"只针对不利影响（风险），不包括有利影响（机遇）。',answer:[1],explain:'错误。机遇是可能产生有利影响的情形，二者都需要识别和应对。',ref:'6.1'},
+{id:'J016',ch:'6',topic:'体系策划',lv:1,stem:'在策划质量管理体系时，组织可以不考虑4.1所提及的因素和4.2所提及的要求。',answer:[1],explain:'错误。策划体系时必须考虑组织环境（4.1）和相关方要求（4.2）。',ref:'6.1.1'},
+{id:'J017',ch:'7',topic:'资源',lv:1,stem:'组织应确定并提供建立、实施、保持和持续改进质量管理体系所需的资源。',answer:[0],explain:'正确。',ref:'7.1.1'},
+{id:'J018',ch:'7',topic:'测量资源',lv:2,stem:'测量设备只要还能正常使用，就可以不必进行校准或检定。',answer:[1],explain:'错误。7.1.5.2 要求测量设备进行校准和/或检定（或二者兼有），并进行必要的调整、标识、防护，确保结果有效。',ref:'7.1.5.2'},
+{id:'J019',ch:'7',topic:'测量资源',lv:1,stem:'当测量设备不符合要求时，组织应确定以往测量结果的有效性并采取适当措施。',answer:[0],explain:'正确。',ref:'7.1.5.2'},
+{id:'J020',ch:'7',topic:'组织知识',lv:2,stem:'组织的知识只包括内部来源的知识，不包括外部来源（如标准、学术成果、顾客与供方信息）。',answer:[1],explain:'错误。7.1.6 注：组织的知识可来自内部（如知识产权、经验、教训）也可来自外部（如标准、学术交流、会议、顾客或外部供方知识）。',ref:'7.1.6'},
+{id:'J021',ch:'7',topic:'能力',lv:1,stem:'组织可以不对其控制下工作的人员进行能力评价。',answer:[1],explain:'错误。7.2 要求对影响质量和体系绩效的人员确定能力要求、确保其胜任并保留成文信息。',ref:'7.2'},
+{id:'J022',ch:'7',topic:'意识',lv:1,stem:'组织应确保工作人员知晓质量方针、相关质量目标、其对体系有效性的贡献以及不符合要求的后果。',answer:[0],explain:'正确。',ref:'7.3'},
+{id:'J023',ch:'7',topic:'沟通',lv:2,stem:'关于沟通，组织只需确定何时沟通即可。',answer:[1],explain:'错误。7.4 要求确定沟通什么、何时沟通、与谁沟通、如何沟通、由谁沟通。',ref:'7.4'},
+{id:'J024',ch:'7',topic:'成文信息',lv:1,stem:'质量管理体系的成文信息必须全部以纸质形式保存。',answer:[1],explain:'错误。载体可以是任何形式和介质（纸质或电子），标准不限定载体。',ref:'7.5.3'},
+{id:'J025',ch:'7',topic:'成文信息',lv:2,stem:'对成文信息进行控制时，应实施变更控制并规定保留和处置的要求。',answer:[0],explain:'正确（7.5.3.2 中变更控制与保留和处置）。',ref:'7.5.3.2'},
+{id:'J026',ch:'8',topic:'要求确定',lv:2,stem:'组织应确定产品和服务的要求，包括顾客明示的要求、顾客虽未明示但预期或必要的要求、适用的法律法规要求以及组织认为必要的要求。',answer:[0],explain:'正确。',ref:'8.2.2'},
+{id:'J027',ch:'8',topic:'要求评审',lv:1,stem:'组织应在承诺向顾客提供产品和服务之前，评审与产品和服务有关的要求。',answer:[0],explain:'正确。',ref:'8.2.3'},
+{id:'J028',ch:'8',topic:'设计更改',lv:1,stem:'设计和开发的更改不需要评审和验证，只要通知相关部门即可。',answer:[1],explain:'错误。8.3.6 要求识别、评审和控制设计开发更改，并保留成文信息。',ref:'8.3.6'},
+{id:'J029',ch:'8',topic:'外部供方',lv:1,stem:'组织应确保外部提供的过程、产品和服务符合要求，包括确定并实施对外部供方的评价、选择、绩效监视和再评价准则。',answer:[0],explain:'正确。',ref:'8.4.1'},
+{id:'J030',ch:'8',topic:'顾客财产',lv:2,stem:'顾客财产只需登记入账，若发生损坏或丢失不必报告顾客。',answer:[1],explain:'错误。8.5.3 要求爱护顾客财产，发生损坏、丢失或发现不适用时，应向顾客（所有者）报告并保留成文信息。',ref:'8.5.3'},
+{id:'J031',ch:'8',topic:'防护',lv:1,stem:'在生产和服务提供期间，组织应对输出进行防护，以确保符合要求。',answer:[0],explain:'正确。',ref:'8.5.4'},
+{id:'J032',ch:'8',topic:'放行',lv:2,stem:'产品和服务在放行前无需满足任何接收准则。',answer:[1],explain:'错误。8.6 要求按策划的安排验证产品和服务要求已得到满足，放行前应符合接收准则。',ref:'8.6'},
+{id:'J033',ch:'8',topic:'不合格输出',lv:1,stem:'所有不合格输出都必须一律报废。',answer:[1],explain:'错误。可采取纠正、隔离、限制使用、退回、暂停、告知顾客、获得授权接收等多种方式处理。',ref:'8.7'},
+{id:'J034',ch:'9',topic:'内部审核',lv:2,stem:'内部审核的唯一目的是找出员工的错误并进行处罚。',answer:[1],explain:'错误。内审目的是验证体系符合性和有效性，推动改进，不是处罚员工。',ref:'9.2.1'},
+{id:'J035',ch:'9',topic:'内部审核',lv:1,stem:'内审员可以审核自己所做的工作。',answer:[1],explain:'错误。应确保审核过程的客观性和公正性，审核员不应审核自己的工作。',ref:'9.2.2'},
+{id:'J036',ch:'9',topic:'管理评审',lv:1,stem:'管理评审应由最高管理者按策划的时间间隔实施。',answer:[0],explain:'正确。',ref:'9.3.1'},
+{id:'J037',ch:'9',topic:'评审输入',lv:1,stem:'管理评审的输入应包括以往管理评审所采取措施的状况。',answer:[0],explain:'正确。',ref:'9.3.2'},
+{id:'J038',ch:'10',topic:'纠正措施',lv:2,stem:'纠正措施是为了消除已发现不合格的原因，防止其再次发生。',answer:[0],explain:'正确。注意与"纠正"（仅处置现有不合格）的区别。',ref:'10.2'},
+{id:'J039',ch:'10',topic:'持续改进',lv:1,stem:'持续改进既包括产品和服务方面的改进，也包括质量管理体系绩效和有效性的改进。',answer:[0],explain:'正确。',ref:'10.3'},
+{id:'J040',ch:'8',topic:'外部供方',lv:2,stem:'对外部供方可以一视同仁，无需根据其影响程度分级管理。',answer:[1],explain:'错误。应根据外部提供的过程、产品和服务对组织满足要求能力的潜在影响以及外部供方控制的有效性，确定控制的类型和程度。',ref:'8.4.1'}
+];
+
+/* ===== bank-blank.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 填空题
+   answers: 每个空一个元素；同一空多个可接受答案用 | 分隔 */
+var BANK_BLANK = [
+{id:'F001',ch:'0',topic:'标准编号',lv:1,stem:'ISO 9001:2015 的我国国家标准编号是 GB/T 19001-____。',answers:['2016'],explain:'GB/T 19001-2016 等同采用 ISO 9001:2015。',ref:'标准编号'},
+{id:'F002',ch:'0',topic:'PDCA',lv:1,stem:'PDCA 循环中，P 代表 ____。',answers:['策划|计划|plan'],explain:'P-策划(Plan)、D-实施(Do)、C-检查(Check)、A-处置/改进(Act)。',ref:'0.3.2'},
+{id:'F003',ch:'0',topic:'质量管理原则',lv:1,stem:'七项质量管理原则的第一项是 ____。',answers:['以顾客为关注焦点|以顾客为关注焦点（customer focus）|顾客为关注焦点'],explain:'第一项即"以顾客为关注焦点"。',ref:'ISO 9000'},
+{id:'F004',ch:'5',topic:'章节',lv:1,stem:'标准第5章的名称是 ____。',answers:['领导作用'],explain:'第5章 领导作用。',ref:'5'},
+{id:'F005',ch:'4',topic:'条款名称',lv:1,stem:'条款 4.1 的名称是"理解组织及其 ____"。',answers:['环境'],explain:'4.1 理解组织及其环境。',ref:'4.1'},
+{id:'F006',ch:'6',topic:'条款名称',lv:1,stem:'条款 6.1 是"应对 ____ 和机遇的措施"。',answers:['风险'],explain:'6.1 应对风险和机遇的措施。',ref:'6.1'},
+{id:'F007',ch:'6',topic:'质量目标',lv:1,stem:'质量目标应与质量方针保持一致且 ____。',answers:['可测量'],explain:'可测量是质量目标的必要条件。',ref:'6.2.1'},
+{id:'F008',ch:'7',topic:'资源',lv:1,stem:'组织应确定并提供建立、实施、保持和持续改进质量管理体系所需的 ____。',answers:['资源'],explain:'7.1.1 资源。',ref:'7.1.1'},
+{id:'F009',ch:'7',topic:'测量资源',lv:2,stem:'测量设备应进行校准和/或 ____，以确保测量结果有效。',answers:['检定'],explain:'校准和/或检定（或二者兼有），必要时调整。',ref:'7.1.5.2'},
+{id:'F010',ch:'7',topic:'能力',lv:1,stem:'组织应确定在其控制下工作的人员所需具备的 ____。',answers:['能力'],explain:'7.2 能力。',ref:'7.2'},
+{id:'F011',ch:'7',topic:'成文信息',lv:2,stem:'成文信息中，需要组织"保持"的通常称为 ____，需要"保留"的通常称为 ____。',answers:['文件|成文信息|文档','记录'],explain:'"保持成文信息"多指程序/文件类；"保留成文信息"多指记录类证据。',ref:'7.5'},
+{id:'F012',ch:'8',topic:'条款名称',lv:1,stem:'条款 8.4 是"外部提供的过程、产品和服务的 ____"。',answers:['控制'],explain:'8.4 外部提供的过程、产品和服务的控制。',ref:'8.4'},
+{id:'F013',ch:'8',topic:'条款名称',lv:1,stem:'条款 8.5.2 是"标识和 ____"。',answers:['可追溯性'],explain:'8.5.2 标识和可追溯性。',ref:'8.5.2'},
+{id:'F014',ch:'9',topic:'条款名称',lv:1,stem:'条款 9.2 是"内部 ____"。',answers:['审核'],explain:'9.2 内部审核。',ref:'9.2'},
+{id:'F015',ch:'9',topic:'条款名称',lv:1,stem:'条款 9.3 是"管理 ____"。',answers:['评审'],explain:'9.3 管理评审。',ref:'9.3'},
+{id:'F016',ch:'10',topic:'条款名称',lv:1,stem:'条款 10.3 是"持续 ____"。',answers:['改进'],explain:'10.3 持续改进。',ref:'10.3'},
+{id:'F017',ch:'10',topic:'纠正措施',lv:2,stem:'纠正措施是为了消除不合格的 ____，以防止不合格再次发生或在其他地方发生。',answers:['原因|根本原因'],explain:'纠正措施针对"原因"，纠正针对"不合格本身"。',ref:'10.2'},
+{id:'F018',ch:'9',topic:'审核方案',lv:2,stem:'策划审核方案时，应考虑所涉及过程的重要程度、对组织产生影响的变化和以往审核的 ____。',answers:['结果'],explain:'9.2.2 审核方案考虑因素。',ref:'9.2.2'},
+{id:'F019',ch:'9',topic:'管理评审',lv:1,stem:'管理评审应由 ____ 实施。',answers:['最高管理者'],explain:'9.3.1 管理评审由最高管理者主持实施。',ref:'9.3.1'},
+{id:'F020',ch:'4',topic:'体系范围',lv:1,stem:'质量管理体系的范围应予以确定，并作为 ____ 可获得和保持。',answers:['成文信息|文件'],explain:'4.3 范围应作为成文信息可获得和保持。',ref:'4.3'}
+];
+
+/* ===== bank-case.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 案例专题（情景判定） */
+var BANK_CASE = [
+{id:'C001',ch:'8',topic:'外部供方',lv:2,stem:'审核员在采购部了解到，本月新采用的一家关键原材料供应商，未经过任何评价和选择就直接下单采购，采购员表示"是老板朋友的厂，先用了再说"。',options:['符合标准要求','不符合 8.4.1（外部供方的评价、选择、绩效监视和再评价准则未实施）','不符合 7.5.3（成文信息控制）','不符合 9.1.3（分析与评价）'],answer:[1],explain:'8.4.1 要求组织确定并实施对外部供方的评价、选择、绩效监视和再评价准则。关键原材料供应商未经评价即采购，属于不符合。',ref:'8.4.1'},
+{id:'C002',ch:'7',topic:'测量资源',lv:2,stem:'车间检验用的游标卡尺已超过校准有效期3个月，检验员仍在使用它测量成品关键尺寸并判定合格放行。',options:['符合标准要求','不符合 7.1.5.2（测量溯源/测量设备未按期校准）','不符合 8.6（放行）','不符合 7.1.6（组织的知识）'],answer:[1],explain:'7.1.5.2 要求测量设备按规定进行校准和/或检定，确保测量结果有效。超期使用会使测量结果失去有效保证。',ref:'7.1.5.2'},
+{id:'C003',ch:'9',topic:'内部审核',lv:2,stem:'公司开展内部审核时，质量部张工程师审核了本部门自己负责的装配过程，并出具了该过程的审核报告。',options:['符合标准要求','不符合 9.2.2（审核员不应审核自己的工作，未保证客观公正）','不符合 9.1.1（监视测量）','不符合 5.3（职责权限）'],answer:[1],explain:'9.2.2 要求确保审核过程的客观性和公正性，审核员不应审核自己的工作。',ref:'9.2.2'},
+{id:'C004',ch:'9',topic:'评审输入',lv:2,stem:'2024年管理评审记录中，输入内容只列出了"顾客满意情况"和"内部审核结果"两项，没有涉及外部供方绩效、资源充分性、应对风险和机遇措施的有效性、改进机会等内容。',options:['符合标准要求','不符合 9.3.2（管理评审输入不完整）','不符合 9.3.3（管理评审输出）','不符合 9.1.3（分析与评价）'],answer:[1],explain:'9.3.2 规定管理评审输入应涵盖7大类内容，缺少多项关键输入，属于不符合。',ref:'9.3.2'},
+{id:'C005',ch:'10',topic:'纠正措施',lv:2,stem:'顾客投诉某批次产品尺寸超差，销售部已向顾客致歉并换货，但没有对超差原因进行分析，也没有采取防止再发生的措施。',options:['符合标准要求','不符合 10.2（未评价消除不合格原因的措施需求，未防止再发生）','不符合 8.2.1（顾客沟通）','不符合 9.1.2（顾客满意）'],answer:[1],explain:'换货属于对不合格的纠正；10.2 还要求评价消除原因的措施需求并防止再发生，仅换货未闭环，属于不符合。',ref:'10.2'},
+{id:'C006',ch:'6',topic:'质量目标',lv:2,stem:'公司质量目标规定"2024年顾客满意度达到95%以上"，但现场询问生产部多名员工，无人知道本部门应实现什么质量目标。',options:['符合标准要求','不符合 6.2.1（质量目标未予沟通）/ 7.3（意识）','不符合 9.1.2（顾客满意）','不符合 5.2（质量方针）'],answer:[1],explain:'6.2.1 要求质量目标予以沟通；7.3 要求人员知晓相关质量目标。目标员工不知晓，属于不符合。',ref:'6.2.1 / 7.3'},
+{id:'C007',ch:'7',topic:'能力',lv:2,stem:'新入职的焊工小李，入职当天即被安排上岗焊接承压部件。审核时人事部无法提供其岗位资格或培训的记录。',options:['符合标准要求','不符合 7.2（未确定能力要求、未确保人员胜任、未保留成文信息）','不符合 7.1.2（人员配备）','不符合 7.3（意识）'],answer:[1],explain:'7.2 能力要求：确定能力要求、确保人员胜任（教育/培训/经历）、采取必要措施、保留成文信息。特种作业人员尤为关键。',ref:'7.2'},
+{id:'C008',ch:'7',topic:'成文信息',lv:2,stem:'生产现场一台设备上张贴的作业指导书为A版，而技术部现行有效版本已是C版，现场未及时更换，操作工表示"一直按这张做的"。',options:['符合标准要求','不符合 7.5.3.2（成文信息未控制有效版本、变更控制失效）','不符合 8.6（放行）','不符合 6.3（变更策划）'],answer:[1],explain:'7.5.3.1/7.5.3.2 要求确保使用的是适宜、现行有效的成文信息版本，并实施变更控制。现场使用作废版本属于不符合。',ref:'7.5.3.2'},
+{id:'C009',ch:'8',topic:'顾客财产',lv:2,stem:'顾客提供的模具交由生产部使用，因保管不善造成局部损坏；公司自行修复后继续使用，全程未告知顾客。',options:['符合标准要求','不符合 8.5.3（顾客财产损坏未向所有者报告、未保留成文信息）','不符合 8.5.4（防护）','不符合 8.4（外部提供控制）'],answer:[1],explain:'8.5.3 要求爱护顾客财产，发生损坏、丢失或发现不适用时，应向顾客（所有者）报告并保留成文信息。',ref:'8.5.3'},
+{id:'C010',ch:'8',topic:'设计更改',lv:2,stem:'审核发现，设计部门对某型号产品的设计更改只是口头通知了生产部，未对更改进行评审、验证和确认，也没有保留更改的成文信息。',options:['符合标准要求','不符合 8.3.6（设计和开发更改未评审、验证、控制）','不符合 8.3.4（设计控制）','不符合 8.5.6（更改控制）'],answer:[1],explain:'8.3.6 要求识别、评审和控制设计和开发更改，并保留成文信息（更改内容、评审人员、授权、必要措施）。',ref:'8.3.6'},
+{id:'C011',ch:'8',topic:'不合格输出',lv:2,stem:'装配过程中发现一批不合格零件，工人随手放在装配台旁的纸箱中，未做任何标识，也未与合格品隔离。',options:['符合标准要求','不符合 8.7（不合格输出未识别和控制，存在非预期使用风险）','不符合 8.5.2（标识和可追溯性）','不符合 8.6（放行）'],answer:[1],explain:'8.7 要求对不合格输出予以识别和控制，防止其非预期使用或交付。未标识、未隔离存在混用风险。',ref:'8.7'},
+{id:'C012',ch:'9',topic:'内部审核',lv:2,stem:'公司每年都开展内部审核，但近三年的内审发现的问题记录在案后均无跟踪验证关闭；审核报告也未提交给相关管理者。',options:['符合标准要求','不符合 9.2.2（审核结果未报告相关管理者，成文信息与跟踪失效）','不符合 9.3.1（管理评审）','不符合 10.1（改进总则）'],answer:[1],explain:'9.2.2 要求将审核结果报告给相关管理者并保留成文信息；发现问题的整改闭环还涉及10.2。',ref:'9.2.2'},
+{id:'C013',ch:'8',topic:'外部供方',lv:2,stem:'采购部与A供应商签订的采购订单涉及关键特殊过程的委外加工，但订单及技术协议中均未明确该特殊过程的具体要求。',options:['符合标准要求','不符合 8.4.3（未与外部供方沟通必要的要求）','不符合 8.4.1（供方评价）','不符合 8.5.1（生产控制）'],answer:[1],explain:'8.4.3 规定组织应与外部供方沟通的要求，包括拟提供的产品和服务、方法/过程/设备的批准、人员资格、控制与监视、验证或确认活动等。',ref:'8.4.3'},
+{id:'C014',ch:'5',topic:'质量方针',lv:2,stem:'公司编制了质量方针"顾客至上、质量第一、持续改进"，但方针未形成任何成文信息，也未在组织内进行沟通和宣贯。',options:['符合标准要求','不符合 5.2.2（方针未保持成文信息、未在组织内沟通理解）','不符合 5.2.1（方针内容）','不符合 7.4（沟通）'],answer:[1],explain:'5.2.2 沟通质量方针：应以成文信息形式保持、可获取，并在组织内得到沟通、理解和应用。',ref:'5.2.2'},
+{id:'C015',ch:'4',topic:'组织环境',lv:2,stem:'审核发现，公司自成立以来从未识别过影响质量管理体系的内外部因素和相关方的要求，也从未识别过需要应对的风险和机遇。',options:['符合标准要求','不符合 4.1、4.2 和 6.1（未理解组织环境、相关方需求，未应对风险和机遇）','不符合 9.1.1（监视测量）','不符合 8.1（运行策划）'],answer:[1],explain:'4.1/4.2 要求确定内外部因素和相关方要求；6.1 要求策划时确定需要应对的风险和机遇。三者均缺失。',ref:'4.1 / 4.2 / 6.1'},
+{id:'C016',ch:'8',topic:'防护',lv:2,stem:'成品仓库部分待发货物包装破损，纸箱直接堆放在露天场地淋雨，无任何防护措施。',options:['符合标准要求','不符合 8.5.4（未对输出进行必要防护）','不符合 8.5.2（标识和可追溯性）','不符合 7.1.3（基础设施）'],answer:[1],explain:'8.5.4 防护：生产和服务提供期间应对输出进行防护，包括标识、搬运、污染控制、包装、储存、传送、运输和保护。',ref:'8.5.4'},
+{id:'C017',ch:'9',topic:'评审输出',lv:2,stem:'公司完成了一次管理评审，评审记录中只有参会人员名单和会议纪要，未见任何针对改进机会、质量管理体系变更、资源需求的决策或措施。',options:['符合标准要求','不符合 9.3.3（管理评审输出缺少规定内容）','不符合 9.3.2（管理评审输入）','不符合 10.1（改进总则）'],answer:[1],explain:'9.3.3 规定管理评审输出应包括与改进机会、QMS所需变更、资源需求有关的决定和措施。',ref:'9.3.3'},
+{id:'C018',ch:'7',topic:'测量资源',lv:3,stem:'生产使用的自动检测软件升级新版本后，未确认其对既有测量结果有效性的影响，也未保留任何确认或验证记录。',options:['符合标准要求','不符合 7.1.5.1（监视和测量资源未确保适宜并保留证据）','不符合 7.1.5.2（测量溯源）','不符合 8.5.1（生产控制）'],answer:[1],explain:'7.1.5.1 要求确保所提供的监视和测量资源适合其用途、得到维护，并保留适当的成文信息作为适宜性的证据。测量软件升级后未确认，属于不符合。',ref:'7.1.5.1'},
+{id:'C019',ch:'9',topic:'顾客满意',lv:2,stem:'公司向顾客发放满意度问卷，回收率不足5%，销售部认为"没有参考价值"，此后就再未开展任何顾客满意的监视和测量。',options:['符合标准要求','不符合 9.1.2（未监视顾客满意、未确定获取监视评审信息的方法）','不符合 9.1.1（监视测量总则）','不符合 9.1.3（分析与评价）'],answer:[1],explain:'9.1.2 要求监视顾客对其需求和期望已得到满足程度的感受，并确定获取、监视和评审这些信息的方法。放弃监视属于不符合。',ref:'9.1.2'},
+{id:'C020',ch:'7',topic:'成文信息',lv:2,stem:'体系文件《采购控制程序》自发布以来从未评审和更新，其中引用的标准仍是已作废的旧版；采购人员表示"一直照着做"。',options:['符合标准要求','不符合 7.5.2 / 7.5.3（成文信息未评审更新、未实施变更控制）','不符合 8.4（外部提供控制）','不符合 6.3（变更策划）'],answer:[1],explain:'7.5.2 要求对成文信息进行评审和批准（适宜性和充分性）；7.5.3.2 要求实施变更控制。长期不更新导致文件不适宜，属于不符合。',ref:'7.5.2 / 7.5.3'},
+{id:'C021',ch:'8',topic:'要求评审',lv:2,stem:'销售部在承接一批订单前，未评审顾客提出的交付期本公司是否有能力满足，结果多次延期交货并引发顾客投诉。',options:['符合标准要求','不符合 8.2.3（承诺前未评审组织满足要求的能力）','不符合 8.2.2（要求确定）','不符合 8.5.1（生产控制）'],answer:[1],explain:'8.2.3 要求承诺前评审与产品和服务有关的要求，包括组织有能力满足规定的要求。未评审导致交期无法满足，属于不符合。',ref:'8.2.3'},
+{id:'C022',ch:'8',topic:'生产控制',lv:2,stem:'审核某生产工序时发现，操作工人手边没有任何能说明产品特性、生产方法、检验要求和结果的成文信息，全凭经验操作。',options:['符合标准要求','不符合 8.5.1（未在受控条件下生产，缺少成文信息）','不符合 7.5（成文信息）','不符合 7.2（能力）'],answer:[1],explain:'8.5.1 受控条件包括：可获得成文信息，规定拟生产的产品、提供的服务或进行的活动的特性，以及拟获得的结果。',ref:'8.5.1'},
+{id:'C023',ch:'8',topic:'不合格输出',lv:2,stem:'公司对一批不合格品进行了返工，返工后未经重新检验即直接办理入库并交付顾客。',options:['符合标准要求','不符合 8.7.1 d)（纠正后未验证其符合要求）','不符合 8.6（放行）','不符合 8.5.1（生产控制）'],answer:[1],explain:'8.7.1 规定：对不合格输出进行纠正（如返工）之后，应验证其是否符合要求。返工后未验证即交付，属于不符合。',ref:'8.7.1'},
+{id:'C024',ch:'7',topic:'成文信息',lv:2,stem:'某企业将质量管理体系文件的编写全部外包给咨询公司，文件编写完成后企业未组织评审和批准即直接发布实施。',options:['符合标准要求','不符合 7.5.2（创建和更新成文信息未确保适宜的评审和批准）','不符合 7.5.3（成文信息控制）','不符合 4.4（体系及过程）'],answer:[1],explain:'7.5.2 要求创建和更新成文信息时，确保适当的标识和说明、格式和载体、评审和批准（适宜性和充分性）。',ref:'7.5.2'},
+{id:'C025',ch:'9',topic:'内审/评审',lv:2,stem:'审核时发现，公司已连续三年未开展内部审核，也未进行管理评审。',options:['符合标准要求','不符合 9.2 和 9.3（未实施内部审核和管理评审）','不符合 10.2（纠正措施）','不符合 7.5（成文信息）'],answer:[1],explain:'9.2 要求按策划的时间间隔进行内部审核；9.3 要求最高管理者按策划的时间间隔实施管理评审。',ref:'9.2 / 9.3'},
+{id:'C026',ch:'7',topic:'能力',lv:2,stem:'公司新购置了一批自动化设备，但未对操作人员进行培训，也未提供设备操作说明书等必要信息，设备投入后频繁出现操作失误和产品超差。',options:['符合标准要求','不符合 7.2（未确保人员具备所需能力）','不符合 7.1.3（基础设施）','不符合 8.5.1（生产控制）'],answer:[1],explain:'7.2 要求确定人员所需能力并确保其胜任，必要时采取措施获得能力。新设备上线应对操作人员进行相应培训或授权。',ref:'7.2'},
+{id:'C027',ch:'6',topic:'变更策划',lv:3,stem:'公司决定将主要生产线搬迁至新厂区，但未对搬迁可能带来的过程接口、设备状态、人员调整、工艺参数变化等风险进行任何策划，搬迁后出现多批产品不合格。',options:['符合标准要求','不符合 6.3（质量管理体系变更未进行策划）','不符合 7.1.3（基础设施）','不符合 10.2（纠正措施）'],answer:[1],explain:'6.3 变更的策划：应确定变更目的及潜在后果、体系的完整性与持续有效、资源可获得性、职责和权限的分配或再分配。',ref:'6.3'},
+{id:'C028',ch:'8',topic:'外部供方',lv:2,stem:'公司对外部供方的控制仅停留在下单和收货，从未对任何外部供方进行过绩效监视和再评价，供方合格名录多年未更新。',options:['符合标准要求','不符合 8.4.1（未实施外部供方的绩效监视和再评价）','不符合 8.4.2（控制类型和程度）','不符合 9.1.3（分析与评价）'],answer:[1],explain:'8.4.1 要求确定并实施外部供方的评价、选择、绩效监视和再评价准则。只下单收货、不做绩效监视和再评价，属于不符合。',ref:'8.4.1'}
+];
+
+/* ===== bank-short.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 简答题（自评） */
+var BANK_SHORT = [
+{id:'SH001',ch:'0',topic:'质量管理原则',lv:1,stem:'七项质量管理原则是什么？',model:'以顾客为关注焦点、领导作用、全员积极参与、过程方法、改进、循证决策、关系管理。',key:['共七项，缺一不可','是ISO 9001标准的理论基础'],explain:'这七项原则是理解和记忆整部标准的钥匙。',ref:'ISO 9000 质量管理原则'},
+{id:'SH002',ch:'0',topic:'PDCA',lv:1,stem:'简述 PDCA 循环与标准章节的对应关系。',model:'P（策划）对应第6章策划；D（实施）对应第7章支持、第8章运行；C（检查）对应第9章绩效评价；A（改进）对应第10章改进。',key:['P-6章','D-7、8章','C-9章','A-10章'],explain:'整部标准就是按PDCA展开的。',ref:'0.3.2'},
+{id:'SH003',ch:'0',topic:'过程方法',lv:2,stem:'什么是过程方法？',model:'将相互关联、相互影响的活动作为过程组成的体系来理解和管理，按照组织的质量方针和战略方向，对各过程及其相互作用进行系统的规定和管理，以提高体系的有效性和效率。它与基于风险的思维相互补充。',key:['输入→活动→输出','系统的规定和管理','与风险思维互补'],explain:'过程方法是2015版核心理念之一。',ref:'0.3 过程方法'},
+{id:'SH004',ch:'9',topic:'内部审核',lv:1,stem:'内部审核的目的是什么？',model:'确定质量管理体系是否符合组织自身对质量管理体系所规定的要求以及本标准的要求，并确定其是否得到有效实施和保持。',key:['两个"确定"：符合性 + 有效实施和保持','注意：不是找员工错误、不是处罚'],explain:'常见误区是把内审当成"挑毛病/扣分"。',ref:'9.2.1'},
+{id:'SH005',ch:'5',topic:'质量方针',lv:1,stem:'质量方针应满足哪些要求？',model:'①与组织的宗旨相适应；②提供制定质量目标的框架；③包括对满足适用要求的承诺；④包括对持续改进的承诺。同时应保持成文信息、可获取，并在组织内得到沟通、理解和应用。',key:['四项内容要求','保持成文信息 + 沟通理解应用'],explain:'内容四项 + 管理要求。',ref:'5.2.1 / 5.2.2'},
+{id:'SH006',ch:'6',topic:'质量目标',lv:1,stem:'质量目标应符合哪些要求？',model:'与质量方针保持一致；可测量；考虑适用的要求；与产品和服务合格以及增强顾客满意相关；予以监视；予以沟通；适当时予以更新。',key:['与方针一致 + 可测量是硬指标','要监视、沟通、更新'],explain:'"可测量"不等于"必须是定量数值"，有可判定的准则即可。',ref:'6.2.1'},
+{id:'SH007',ch:'6',topic:'质量目标',lv:1,stem:'策划质量目标的实现时，应确定哪些内容？',model:'要做什么；需要什么资源；由谁负责；何时完成；如何评价结果。',key:['5W 式安排','尤其别漏"如何评价结果"'],explain:'常考"五定"。',ref:'6.2.2'},
+{id:'SH008',ch:'10',topic:'纠正措施',lv:2,stem:'"纠正"与"纠正措施"有什么区别？',model:'纠正是为消除已发现的不合格所采取的措施，处置的是现象（如返工、换货、降级）；纠正措施是为消除不合格的原因并防止其再次发生所采取的措施，针对的是原因。纠正措施要经过：评价原因→实施→评审有效性。',key:['纠正=治标（处置现象）','纠正措施=治本（消除原因、防再发）','这是高频失分点'],explain:'内审最常见的不符合就是"只纠正、不采取纠正措施"。',ref:'10.2'},
+{id:'SH009',ch:'8',topic:'外部供方',lv:1,stem:'8.4.1 要求对外部供方确定并实施哪些准则？',model:'评价、选择、绩效监视和再评价的准则。',key:['四个动作：评价、选择、绩效监视、再评价','缺"绩效监视和再评价"是常见不符合'],explain:'很多企业只做"选择"，不做"绩效监视和再评价"。',ref:'8.4.1'},
+{id:'SH010',ch:'9',topic:'内部审核',lv:1,stem:'为什么内审员不应审核自己的工作？',model:'为保证审核过程的客观性和公正性（9.2.2）。审核员审核自己的工作无法保持独立与客观，审核结论的可信度会受影响。',key:['客观性 + 公正性','对应9.2.2'],explain:'典型案例题考点。',ref:'9.2.2'},
+{id:'SH011',ch:'9',topic:'评审输入',lv:2,stem:'管理评审的输入应包括哪些内容？',model:'a) 以往管理评审所采取措施的状况；b) 与质量管理体系相关的内、外部问题的变化；c) 质量管理体系绩效和有效性的信息，包括趋势：①顾客满意和相关方的反馈 ②质量目标的实现程度 ③过程绩效以及产品和服务的符合性 ④不合格以及纠正措施 ⑤监视和测量结果 ⑥审核结果 ⑦外部供方的绩效；d) 资源的充分性；e) 应对风险和机遇所采取措施的有效性；f) 改进的机会。',key:['a~f 六项主输入','c 项下面有 7 个子项','供方绩效、资源充分性最容易被漏'],explain:'背记口诀：往期措施、内外变化、绩效趋势、资源、风险机遇、改进机会。',ref:'9.3.2'},
+{id:'SH012',ch:'9',topic:'评审输出',lv:1,stem:'管理评审的输出应包括什么？',model:'a) 改进的机会；b) 质量管理体系所需的变更；c) 资源需求。（并应包括与这些内容有关的决定和措施）',key:['三项：改进机会、体系变更、资源需求','要有"决定和措施"，不能只开会记录'],explain:'高频不符合：评审有输入无输出。',ref:'9.3.3'},
+{id:'SH013',ch:'9',topic:'审核方案',lv:1,stem:'策划内部审核方案时，应考虑哪些因素？',model:'a) 所涉及过程的重要程度；b) 对组织产生影响的变化；c) 以往审核的结果。',key:['三项：过程重要程度、影响变化、以往结果'],explain:'别只按"一年一次、挨个部门转"。',ref:'9.2.2'},
+{id:'SH014',ch:'7',topic:'成文信息',lv:2,stem:'组织应如何控制成文信息？',model:'确保成文信息在需要的场合和时机可获取并适宜使用；得到充分保护（如防止泄密、防止误用、保持完整性）；控制分发、访问、检索和使用；存储和防护（含保持清晰可读）；变更控制；保留和处置。并保留适当的成文信息作为证据。',key:['"可用"+"可控"两个方向','注意变更控制与保留处置'],explain:'成文信息控制是审核必查项。',ref:'7.5.3'},
+{id:'SH015',ch:'8',topic:'可追溯性',lv:1,stem:'什么是"可追溯性"？什么时候需要控制唯一性标识？',model:'可追溯性是指追溯客体的历史、应用情况或所处位置的能力。当有可追溯性要求时，组织应控制输出的唯一性标识，并保留所需的成文信息。',key:['追溯历史的"能力"','有要求时才需控制唯一性标识'],explain:'常与标识、状态标识一起考。',ref:'8.5.2'},
+{id:'SH016',ch:'7',topic:'测量资源',lv:2,stem:'测量设备（监视和测量资源）应满足哪些要求？',model:'进行校准和/或检定（或二者兼有），或进行必要的调整；予以识别，以确定其状态；予以防护，防止因调整不当、损坏或变质而使测量结果失效；当发现测量设备不符合要求时，确定以往测量结果的有效性并采取适当措施；保留成文信息。',key:['校准/检定 + 标识状态','防护 + 超差追溯处理','保留记录'],explain:'现场查"卡尺超期"是经典案例。',ref:'7.1.5.2'},
+{id:'SH017',ch:'8',topic:'标识状态',lv:1,stem:'为什么要进行监视和测量状态标识？',model:'用于区分产品/输出的待检、合格、不合格、待判定等状态，防止不合格输出被非预期使用或交付；与产品标识、可追溯性要求（8.5.2）配合实施。',key:['防止非预期使用或交付','对应8.5.2识别监视测量状态'],explain:'车间最常见的隐患之一。',ref:'8.5.2'},
+{id:'SH018',ch:'8',topic:'不合格输出',lv:1,stem:'不合格输出可以如何处理？',model:'予以纠正；隔离、限制使用、退回或暂停提供产品和服务；告知顾客；获得接收的授权。对纠正后的不合格输出应验证其符合要求。',key:['四种处置方式','纠正后必须重新验证'],explain:'注意"返工后未验证即交付"是高频不符合。',ref:'8.7'},
+{id:'SH019',ch:'8',topic:'设计开发',lv:2,stem:'设计和开发包括哪些主要控制活动？',model:'①策划：确定阶段和所需的控制、评审/验证/确认活动、职责权限、接口、顾客与使用者参与、后续要求、控制水平；②输入：充分适宜、完整清楚、不矛盾；③控制：按策划实施评审、验证、确认；④输出：满足输入要求、足以用于后续过程、含接收准则；⑤更改：识别、评审、控制并保留记录。',key:['策划—输入—控制—输出—更改五段','更改也要评审验证'],explain:'8.3 是条款最多的部分。',ref:'8.3'},
+{id:'SH020',ch:'6',topic:'变更策划',lv:2,stem:'当组织需要变更质量管理体系时，应策划哪些内容？',model:'a) 变更的目的及其潜在后果；b) 质量管理体系的完整性；c) 资源的可获得性；d) 职责和权限的分配或再分配。（并保持体系的持续有效）',key:['目的与后果、完整性、资源、职责权限'],explain:'2026 新版会进一步强化"变更成效的评价"。',ref:'6.3'},
+{id:'SH021',ch:'9',topic:'顾客满意',lv:1,stem:'为什么要监视顾客满意？常用方法有哪些？',model:'9.1.2 要求监视顾客对其需求和期望已得到满足程度的感受，并确定获取、监视和评审这些信息的方法。方法包括：顾客调查、顾客对交付产品和服务质量的反馈、与顾客沟通时获得的信息、顾客投诉、赞扬、索赔以及市场份额分析等。',key:['监视"感受"','方法要多样，且要评审'],explain:'长期不做顾客满意监视属不符合。',ref:'9.1.2'},
+{id:'SH022',ch:'9',topic:'内审流程',lv:2,stem:'内部审核的六个主要步骤是什么？',model:'①审核方案策划（年度计划）；②审核准备（组建小组、编检查表、通知）；③审核实施（首次会议、现场收集证据、末次会议）；④编写审核报告、开具不符合项；⑤纠正措施跟踪；⑥验证整改有效性并闭环。',key:['策划→准备→实施→报告→跟踪→验证','缺"跟踪验证"是最常见的问题'],explain:'实操记忆框架。',ref:'9.2'},
+{id:'SH023',ch:'9',topic:'不符合分级',lv:1,stem:'不符合项一般如何分级？',model:'严重不符合：体系性、区域性失效，或导致严重后果的不符合；一般不符合：孤立、偶然、影响有限的不符合；观察项：尚不构成不符合，但存在潜在风险或有改进空间的事项。',key:['严重 / 一般 / 观察项','按失效范围和后果分级'],explain:'考试与实操都常问。',ref:'审核实务'},
+{id:'SH024',ch:'7',topic:'组织知识',lv:2,stem:'组织的知识指什么？如何管理？',model:'指为运行过程、实现产品和服务的符合性所需的、组织专有的知识。可来自内部（经验、教训、知识产权、工艺诀窍）也可来自外部（标准、学术交流、顾客或外部供方知识）。组织应确定、保持这些知识，并在需要时予以获取和更新。',key:['组织专有 + 内外部来源','确定—保持—获取—更新'],explain:'防止"知识全在老师傅脑子里"。',ref:'7.1.6'},
+{id:'SH025',ch:'7',topic:'测量资源',lv:2,stem:'7.1.5.1（监视和测量资源总则）要求组织做什么？',model:'确定并提供所需资源，以确保监视和测量活动可行并适宜地实施；确保所提供的监视和测量资源适合其用途并得到维护；保留适当的成文信息作为监视和测量资源适宜性的证据。',key:['提供资源 + 适合用途 + 维护','保留适宜性的证据'],explain:'与7.1.5.2测量溯源区分：总则管"资源"，溯源管"校准"。',ref:'7.1.5.1'},
+{id:'SH026',ch:'5',topic:'领导作用',lv:2,stem:'最高管理者应如何证实其领导作用和承诺？',model:'对质量管理体系的有效性负责；确保制定质量方针和质量目标，并与组织环境和战略方向相一致；确保质量管理体系要求融入组织的业务过程；促进使用过程方法和基于风险的思维；确保体系获得所需资源；沟通有效管理的重要性；确保实现预期结果；指导并支持人员为体系有效性做出贡献；促进改进；支持其他管理者证实其领导作用。',key:['对有效性负责 + 融入业务过程','提供资源 + 促进过程方法与风险思维','2026版还会加上"倡导质量文化和道德行为"'],explain:'5.1.1 的核心清单。',ref:'5.1.1'}
+];
+
+/* ===== bank-term.js ===== */
+/* ISO 9001:2015 内审员刷题库 — 名词解释（自评） */
+var BANK_TERM = [
+{id:'TE001',ch:'0',topic:'体系术语',lv:1,stem:'请解释：质量管理体系',model:'管理体系中关于质量的部分，是组织用于建立质量方针和质量目标、以及实现这些目标的过程（相互关联或相互作用的一组要素）。',key:['含方针、目标与实现目标的过程'],explain:'',ref:'GB/T 19000'},
+{id:'TE002',ch:'9',topic:'审核术语',lv:1,stem:'请解释：审核（audit）',model:'为获得客观证据并对其进行客观评价，以确定满足审核准则的程度所进行的系统的、独立的、形成文件的过程。',key:['系统性、独立性、形成文件','是"过程"'],explain:'三个关键词必背。',ref:'GB/T 19011'},
+{id:'TE003',ch:'9',topic:'审核术语',lv:1,stem:'请解释：审核准则（audit criteria）',model:'用于与客观证据进行比较的一组方针、程序或要求。',key:['一组方针、程序或要求'],explain:'内审的准则=标准+体系文件+适用法规等。',ref:'GB/T 19011'},
+{id:'TE004',ch:'9',topic:'审核术语',lv:1,stem:'请解释：客观证据（objective evidence）',model:'支持事物存在或其真实性的数据。',key:['强调可证实、不含主观推断'],explain:'写不符合项必须基于客观证据。',ref:'GB/T 19011'},
+{id:'TE005',ch:'9',topic:'审核术语',lv:2,stem:'请解释：审核发现（audit finding）',model:'将收集的审核证据对照审核准则进行评价的结果。审核发现能表明符合或不符合审核准则，或指出改进机会。',key:['证据 + 准则 → 评价结果'],explain:'可以是符合项，也可以是不符合项。',ref:'GB/T 19011'},
+{id:'TE006',ch:'0',topic:'体系术语',lv:1,stem:'请解释：不符合（nonconformity）',model:'未满足要求。',key:['核心：未满足"要求"'],explain:'要求可来自标准、体系文件、法规、顾客等。',ref:'GB/T 19000'},
+{id:'TE007',ch:'10',topic:'改进术语',lv:1,stem:'请解释：纠正（correction）',model:'为消除已发现的不合格所采取的措施。',key:['处置现象（治标）','如返工、返修、降级、换货'],explain:'区别于"纠正措施"。',ref:'GB/T 19000'},
+{id:'TE008',ch:'10',topic:'改进术语',lv:1,stem:'请解释：纠正措施（corrective action）',model:'为消除不合格的原因并防止再发生所采取的措施。',key:['针对"原因"（治本）','要评价原因、验证有效性'],explain:'高频考点。',ref:'GB/T 19000'},
+{id:'TE009',ch:'10',topic:'改进术语',lv:1,stem:'请解释：预防措施（preventive action）',model:'为消除潜在不合格的原因所采取的措施（即针对尚未发生、可能发生的不合格）。',key:['针对"潜在"不合格的原因'],explain:'2015版把它并入"基于风险的思维"来处理。',ref:'GB/T 19000'},
+{id:'TE010',ch:'10',topic:'改进术语',lv:1,stem:'请解释：持续改进（continual improvement）',model:'不断提升绩效的循环活动。',key:['关键词：不断提升绩效','是循环活动'],explain:'对应10.3。',ref:'GB/T 19000'},
+{id:'TE011',ch:'0',topic:'体系术语',lv:1,stem:'请解释：过程（process）',model:'利用输入实现预期结果的相互关联或相互作用的一组活动。',key:['输入 → 活动 → 输出'],explain:'',ref:'GB/T 19000'},
+{id:'TE012',ch:'0',topic:'体系术语',lv:2,stem:'请解释：过程方法（process approach）',model:'将相互关联的过程作为一个体系加以理解和管理，有助于组织有效和高效地实现其预期结果。',key:['对过程的"体系"化 + 系统管理'],explain:'',ref:'GB/T 19000'},
+{id:'TE013',ch:'6',topic:'风险术语',lv:2,stem:'请解释：风险（risk）',model:'不确定性的影响。这种影响可能是负面的（威胁），也可能是正面的（机遇）。',key:['不确定性 + 影响','下划线重点：不只是坏的影响'],explain:'2015版一个重大概念转变。',ref:'GB/T 19000'},
+{id:'TE014',ch:'6',topic:'风险术语',lv:2,stem:'请解释：机遇（opportunity）',model:'对预期结果产生正面影响的可能性（可能带来有利影响的状况）。组织应识别机遇并加以利用。',key:['正面影响的可能性'],explain:'2026新版把"风险"和"机遇"进一步分开管理。',ref:'GB/T 19000 / 6.1'},
+{id:'TE015',ch:'7',topic:'成文信息',lv:1,stem:'请解释：成文信息（documented information）',model:'组织需要控制和保持的信息及其载体。可以是任何形式和介质（纸质或电子），包括"保持"的文件和"保留"的记录。',key:['信息 + 载体','"保持"=文件；"保留"=记录'],explain:'2015版用"成文信息"取代"文件/记录"。',ref:'GB/T 19000'},
+{id:'TE016',ch:'8',topic:'体系术语',lv:1,stem:'请解释：可追溯性（traceability）',model:'追溯客体的历史、应用情况或所处位置的能力。',key:['追溯历史/使用/位置的能力'],explain:'与唯一性标识配套。',ref:'GB/T 19000'},
+{id:'TE017',ch:'8',topic:'确认术语',lv:2,stem:'请解释：验证（verification）',model:'通过提供客观证据，确认规定要求已得到满足。',key:['针对"规定要求"'],explain:'如：检验产品是否达标（验证）。',ref:'GB/T 19000'},
+{id:'TE018',ch:'8',topic:'确认术语',lv:2,stem:'请解释：确认（validation）',model:'通过提供客观证据，确认满足特定预期用途或应用的要求。',key:['针对"特定预期用途"'],explain:'如：确认产品在实际使用中好用（确认）。口诀：验证"对不对"，确认"好不好用"。',ref:'GB/T 19000'},
+{id:'TE019',ch:'9',topic:'体系术语',lv:1,stem:'请解释：评审（review）',model:'为确定主题事项达到规定目标的适宜性、充分性和有效性所进行的活动。',key:['适宜性、充分性、有效性'],explain:'管理评审、设计评审都属此类。',ref:'GB/T 19000'},
+{id:'TE020',ch:'8',topic:'不合格术语',lv:2,stem:'请解释：让步（concession）',model:'对使用或放行不符合规定要求的产品的许可。',key:['对"不符合"输出的放行许可','通常需授权，必要时需顾客同意'],explain:'常与"授权接收"配套出现。',ref:'GB/T 19000'},
+{id:'TE021',ch:'8',topic:'不合格术语',lv:2,stem:'请解释：返工与返修',model:'返工：为使不合格产品符合要求而对其采取的措施（返工后应重新检验并合格）。返修：为使不合格产品满足预期用途而对其采取的措施（可能不完全符合原要求，通常需让步授权）。',key:['返工→符合原要求','返修→满足预期用途（可能需让步）'],explain:'两者结果不同，别混。',ref:'GB/T 19000'},
+{id:'TE022',ch:'8',topic:'放行术语',lv:1,stem:'请解释：放行（release）',model:'对进入下一阶段过程的许可。',key:['阶段性许可'],explain:'产品放行需按策划安排验证要求已满足（8.6）。',ref:'GB/T 19000'},
+{id:'TE023',ch:'7',topic:'知识术语',lv:2,stem:'请解释：组织的知识',model:'组织专有的知识，是为运行过程、实现产品和服务的符合性所需的知识。来源于内部（经验、教训、知识产权）和外部（标准、学术、顾客与供方），应予以确定、保持、获取和更新。',key:['组织专有','内外部来源','确定/保持/获取/更新'],explain:'',ref:'7.1.6'},
+{id:'TE024',ch:'4',topic:'相关方',lv:1,stem:'请解释：相关方（interested party）',model:'能够影响决策或活动、受决策或活动影响，或自认为受决策或活动影响的个人或组织。如顾客、员工、供方、监管机构、股东等。',key:['影响、被影响、自认为被影响','与体系有关的相关方才需管理'],explain:'',ref:'GB/T 19000 / 4.2'},
+{id:'TE025',ch:'5',topic:'体系术语',lv:1,stem:'请解释：质量方针（quality policy）',model:'由最高管理者正式发布的、关于质量的组织的宗旨和方向。应与组织宗旨相适应，提供制定质量目标的框架，并包含满足适用要求和持续改进的承诺。',key:['最高管理者发布','宗旨和方向','含两项承诺'],explain:'',ref:'GB/T 19000 / 5.2'},
+{id:'TE026',ch:'6',topic:'体系术语',lv:1,stem:'请解释：质量目标（quality objective）',model:'关于质量的目标，即要在质量方面取得的结果。应与质量方针保持一致、可测量、与产品和服务合格及增强顾客满意相关。',key:['要取得的结果','与方针一致、可测量'],explain:'',ref:'GB/T 19000 / 6.2'}
+];
+
+/* ===== bank-v2026.js ===== */
+/* ISO 9001 内审员刷题库 — 2026 换版专题
+   说明：以下依据 ISO/DIS 9001 草案及 TÜV、BSI、SGS、DQS、ANSI 等机构公开解读编写，
+   最终以 ISO 正式发布文本和我国等同采用的国家标准为准。 */
+var BANK_V2026 = [
+{id:'V101',ch:'26',topic:'换版定位',lv:1,stem:'ISO 9001:2026 相对 2015 版的总体定位是（　）。',options:['推倒重来的全新标准','温和修订：核心框架保留，主要是澄清、编辑优化并新增时代性要求','取消过程方法','仅修改标准编号'],answer:[1],explain:'2026 版是温和修订，保留 2015 版的核心框架与过程方法，主要是澄清措辞、协调架构并新增若干要求。',ref:'ISO/ANSI 解读'},
+{id:'V102',ch:'26',topic:'领导作用',lv:1,stem:'ISO 9001:2026 在"领导作用"方面新增的要求是（　）。',options:['提高财务指标','最高管理者应倡导质量文化和道德行为','最高管理者应亲自操作每个过程','削减体系资源'],answer:[1],explain:'5.1.1 新增：最高管理者应在"倡导质量文化和道德行为"方面证实其领导力和承诺。',ref:'5.1.1（2026）'},
+{id:'V103',ch:'26',topic:'风险和机遇',lv:1,stem:'ISO 9001:2026 把下列哪两者进一步分开管理？（　）',options:['输入与输出','风险与机遇','纠正与纠正措施','内审与外审'],answer:[1],explain:'6.1 被细分为多个小节，区分"应对风险的措施"与"追求机遇的措施"，强化基于机遇的思维。',ref:'6.1（2026）'},
+{id:'V104',ch:'26',topic:'变更策划',lv:2,stem:'ISO 9001:2026 对 6.3"变更的策划"新增/强化的要求是（　）。',options:['变更无需策划','应考虑如何验证与评估变更的有效性、评估变更的成果','变更只需通知顾客','变更由外部机构决定'],answer:[1],explain:'2026 版强化变更管理：组织需考虑如何验证与评估变更的有效性，并评估变更的成果。',ref:'6.3（2026）'},
+{id:'V105',ch:'26',topic:'质量目标',lv:1,stem:'ISO 9001:2026 对质量目标的表述强调（　）。',options:['越高越好','可衡量（在可行的范围内）','必须写成百分数','由顾客制定'],answer:[1],explain:'2026 版强调质量目标应"可衡量"，同时保留"在可行情况下"的务实表述。',ref:'6.2（2026）'},
+{id:'V106',ch:'26',topic:'气候/可持续',lv:2,stem:'关于气候变化，ISO 9001:2026 的做法是（　）。',options:['完全不涉及','气候变化成为标准正文所要考虑的议题','只在附录里提一句','由组织自行决定是否参考'],answer:[1],explain:'延续 2024 年对管理体系标准的气候修正，气候变化被纳入正文要求（4.1/4.2 相关考量）。',ref:'4.1/4.2（2026）'},
+{id:'V107',ch:'26',topic:'附录A',lv:2,stem:'ISO 9001:2026 附录 A 的变化是（　）。',options:['被删除','扩充为对标准正文条款的解读，更实用','与 2015 版完全相同','只剩目录'],answer:[1],explain:'附录 A 扩充为对正文条款的解释说明，便于理解和应用。',ref:'附录A（2026）'},
+{id:'V108',ch:'26',topic:'换版影响',lv:1,stem:'对已符合 ISO 9001:2015 的组织，2026 换版意味着（　）。',options:['必须推倒重来、重新建体系','不需要重新开始，在过渡期内完成升级并换发新证书即可','原有证书立即作废','无需做任何调整'],answer:[1],explain:'认证机构与 ISO 均明确：已获证组织不需要重新走一遍认证流程，由认证机构指导在过渡期内转换即可。',ref:'ISO 官方说明'},
+{id:'V109',ch:'26',topic:'过渡期',lv:1,stem:'ISO 9001:2026 发布后的过渡期大约为（　）。',options:['1 年','2 年','3 年','5 年'],answer:[2],explain:'按 ISO/IAF 通行做法，新版发布后一般给予约 3 年过渡期（预计至 2029 年底）。',ref:'ISO/IAF 惯例'},
+{id:'V110',ch:'26',topic:'时间线',lv:1,stem:'按公开时间表，ISO 9001:2026 的国际标准草案（DIS）发布于（　）。',options:['2023 年 8 月','2025 年 8 月','2026 年 8 月','2024 年 1 月'],answer:[1],explain:'DIS 发布于 2025 年 8 月，FDIS 约 2026 年年中，新版目标 2026 年第三/四季度发布。',ref:'SGS/TÜV 时间表'},
+{id:'V111',ch:'26',topic:'机遇思维',lv:2,stem:'2026 版新增强化的"基于机遇的思维"集中体现在哪一条款？（　）',options:['4.1','6.1','8.6','10.3'],answer:[1],explain:'6.1 应对风险和机遇的措施被细化，明确区分风险应对与机遇追求。',ref:'6.1（2026）'},
+{id:'V112',ch:'26',topic:'时代主题',lv:2,stem:'下列哪项属于 ISO 9001:2026 关注的新增/强化方向？（　）',options:['取消风险思维','数字技术与信息化应用、韧性与可持续等时代议题','取消内部审核','取消管理评审'],answer:[1],explain:'新版关注数字化/AI、韧性、供应链、可持续（ESG）、伦理治理等时代议题。',ref:'ISO TC176 方向'},
+{id:'V113',ch:'26',topic:'意识',lv:1,stem:'2026 版在"意识"（7.3）方面扩展的内容是（　）。',options:['财务意识','质量文化与道德行为','消防意识','保密意识'],answer:[1],explain:'7.3 意识要求同步扩展，纳入对质量文化和道德行为的理解。',ref:'7.3（2026）'},
+{id:'V114',ch:'26',topic:'架构',lv:2,stem:'关于 2026 版与 2015 版的结构关系，正确的是（　）。',options:['结构完全不同','保留 Annex SL / 协调架构（HLS/HS），便于多体系整合','取消了过程方法','删除了全部术语'],answer:[1],explain:'延续协调架构，确保与 ISO 14001、ISO 45001 等标准整合兼容；术语可在正文直接定义，减少对 ISO 9000 的依赖。',ref:'SGS 解读'},
+
+{id:'V201',ch:'26',topic:'主要变化',lv:2,stem:'下列属于 ISO 9001:2026 主要变化方向的有（　）。',options:['质量文化与道德行为','风险与机遇分开管理','变更管理强化','气候变化纳入正文'],answer:[0,1,2,3],explain:'四项都是公开解读中列出的主要变化方向。',ref:'TÜV/BSI/ISO 解读'},
+{id:'V202',ch:'26',topic:'领导作用',lv:2,stem:'2026 版中与"领导作用"有关的内容包括（　）。',options:['倡导质量文化','倡导道德行为','对体系有效性负责（延续）','确保体系要求融入业务过程（延续）'],answer:[0,1,2,3],explain:'新增"质量文化与道德行为"，其余为 2015 版既有要求的延续。',ref:'5.1.1（2026）'},
+{id:'V203',ch:'26',topic:'强化方向',lv:2,stem:'2026 版可能强化的其他方向包括（　）。',options:['韧性（resilience）与风险','供应链管理','组织知识','可持续/ESG 与伦理治理'],answer:[0,1,2,3],explain:'ISO TC176 公开的工作方向涵盖韧性、供应链、组织知识、可持续等。',ref:'ISO TC176/SC2'},
+{id:'V204',ch:'26',topic:'应对',lv:2,stem:'面对 2026 换版，组织/内审员合理的做法有（　）。',options:['关注新旧版差异点','在过渡期内完成升级并换证','推倒重来、重新建一套体系','参加换版培训、更新体系文件'],answer:[0,1,3],explain:'不需要推倒重来；重点是识别差异、更新文件与培训、在过渡期内完成转换。',ref:'换版实务'},
+{id:'V205',ch:'26',topic:'对比',lv:2,stem:'关于 2026 版与 2015 版的关系，正确的有（　）。',options:['核心框架与过程方法基本保留','主要是澄清措辞与编辑优化','新增了若干时代性要求','完全废弃过程方法'],answer:[0,1,2],explain:'过程方法不但未废弃，仍是核心。',ref:'ANSI/ISO 解读'},
+{id:'V206',ch:'26',topic:'驱动因素',lv:2,stem:'推动 2026 版修订的外部驱动因素有（　）。',options:['数字化与人工智能','气候变化与可持续','伦理、治理与质量文化','远程审核等新型工作方式'],answer:[0,1,2,3],explain:'这些是 2015 年以来外部环境变化带来的新考量。',ref:'Smithers/BSI 解读'},
+
+{id:'V301',ch:'26',topic:'换版',lv:1,stem:'ISO 9001:2026 是一次推倒重来的全新标准。',answer:[1],explain:'错误。2026 版是温和修订，保留核心框架，主要是澄清、编辑优化与新增要求。',ref:'ISO 解读'},
+{id:'V302',ch:'26',topic:'领导作用',lv:1,stem:'2026 版新增了"最高管理者应倡导质量文化和道德行为"的要求。',answer:[0],explain:'正确。这是 5.1.1 的新增内容。',ref:'5.1.1（2026）'},
+{id:'V303',ch:'26',topic:'架构',lv:1,stem:'2026 版保留了 Annex SL / 协调架构（HLS）。',answer:[0],explain:'正确。协调架构保持，便于多体系整合。',ref:'SGS 解读'},
+{id:'V304',ch:'26',topic:'风险和机遇',lv:2,stem:'2026 版把风险和机遇合并处理，不再区分。',answer:[1],explain:'错误。恰恰相反，2026 版将风险与机遇进一步分开管理，强化基于机遇的思维。',ref:'6.1（2026）'},
+{id:'V305',ch:'26',topic:'质量目标',lv:1,stem:'2026 版强调质量目标应可衡量。',answer:[0],explain:'正确。且保留"在可行范围内"的务实表述。',ref:'6.2（2026）'},
+{id:'V306',ch:'26',topic:'过渡期',lv:1,stem:'ISO 9001:2015 在 2026 版发布后会立即作废。',answer:[1],explain:'错误。按惯例有约 3 年过渡期，2015 版在过渡期内仍然有效。',ref:'ISO/IAF 惯例'},
+{id:'V307',ch:'26',topic:'气候',lv:2,stem:'2026 版要求组织考虑气候变化相关议题。',answer:[0],explain:'正确。延续 2024 年对管理体系标准的气候修正，气候变化纳入正文考量。',ref:'4.1/4.2（2026）'},
+{id:'V308',ch:'26',topic:'附录A',lv:2,stem:'2026 版删除了附录 A。',answer:[1],explain:'错误。附录 A 被扩充，用于解读正文条款。',ref:'附录A（2026）'},
+{id:'V309',ch:'26',topic:'换版影响',lv:1,stem:'已符合 2015 版的组织换版时不需要从零开始。',answer:[0],explain:'正确。认证机构指导下在过渡期内转换即可。',ref:'ISO 官方说明'},
+{id:'V310',ch:'26',topic:'过渡期',lv:1,stem:'ISO 9001:2026 的过渡期约为 3 年。',answer:[0],explain:'正确。预计至 2029 年底。',ref:'ISO/IAF 惯例'},
+
+{id:'V401',ch:'26',topic:'综合分析',lv:2,stem:'简述 ISO 9001:2026 相对 2015 版的定位与主要变化方向。',model:'2026 版是一次温和修订：保留 2015 版的核心框架、过程方法和 Annex SL 协调架构，主要是澄清措辞、统一语言和编辑优化，并新增若干时代性要求。主要变化方向包括：①倡导质量文化和道德行为（领导作用与意识）；②风险与机遇分开管理、强化基于机遇的思维；③变更管理强化（验证评估变更有效性与成果）；④质量目标强调可衡量；⑤气候变化纳入正文；⑥附录 A 扩充；⑦减少对 ISO 9000 的术语依赖。',key:['温和修订、框架保留','质量文化与道德行为','风险/机遇分开','变更成效评价','气候、附录A、数字化'],explain:'答题时先说"定位"，再列 4~6 个变化点。',ref:'ISO/TÜV/BSI 解读'},
+{id:'V402',ch:'26',topic:'风险和机遇',lv:2,stem:'2026 版在"风险和机遇"方面有什么变化？对内审有什么影响？',model:'6.1 被细分为多个小节，把"应对风险的措施"与"追求机遇的措施"分开表述，强化"基于机遇的思维"。内审时应关注：组织是否分别识别了风险和机遇？是否既策划了防范风险的措施，也主动把握了改进与发展的机遇？措施是否有效？',key:['风险与机遇分开','既要防风险，也要抓机遇','检查措施与有效性'],explain:'这是 2026 版最容易被问到的新点之一。',ref:'6.1（2026）'},
+{id:'V403',ch:'26',topic:'领导作用',lv:2,stem:'2026 版在"领导作用"方面新增了什么要求？审核时应查什么？',model:'5.1.1 新增：最高管理者应在"倡导质量文化和道德行为"方面证实其领导力和承诺（注释说明质量文化与道德行为体现在组织共同的价值观、态度和既定实践中）。审核时可查：是否有质量文化/道德行为的宣贯与培训、最高管理者是否以身作则、是否有相关沟通与制度、员工是否理解和认同。',key:['倡导质量文化与道德行为','查宣贯、示范、制度、员工理解'],explain:'',ref:'5.1.1（2026）'},
+{id:'V404',ch:'26',topic:'换版应对',lv:2,stem:'面对 2026 换版，企业与内审员应如何准备？',model:'①关注并研读新旧版差异（必要时参加换版培训）；②评估现有体系对新增要求的满足程度（质量文化与道德行为、机遇思维、变更成效、气候考量等）；③修订体系文件、补充相应过程与记录；④对相关人员进行培训和意识宣贯；⑤在过渡期内（约 3 年）配合认证机构完成换证。注意：不需要推倒重来。',key:['查差异→评估→改文件→培训→过渡期换证','不必推倒重来'],explain:'',ref:'换版实务'},
+{id:'V405',ch:'26',topic:'学习建议',lv:1,stem:'为什么说现在学习 ISO 9001:2015 仍然值得？',model:'因为 2015 版在新版发布后仍有约 3 年的过渡期（预计至 2029 年底）保持有效，且现行企业绝大多数仍按 2015 版运行。2026 版是在 2015 版基础上的温和修订，掌握 2015 版的框架和条款，是理解 2026 版变化的最佳基础。',key:['2015 版过渡期内仍有效','现行企业多按 2015 版运行','2026 是 2015 的演进'],explain:'',ref:'换版实务'}
+];</script>
+<script>
+"use strict";
+/* ===== 数据装配 ===== */
+var ALL = [];
+(function(){
+  function add(arr,type){ (arr||[]).forEach(function(q){ q.type=(type==='v2026')?infer26(q):type; ALL.push(q); }); }
+  add(BANK_SINGLE,'single'); add(BANK_MULTI,'multi'); add(BANK_JUDGE,'judge');
+  add(BANK_BLANK,'blank'); add(BANK_CASE,'case'); add(BANK_SHORT,'short'); add(BANK_TERM,'term'); add(BANK_V2026,'v2026');
+})();
+/* 2026换版专题是混合题型，按结构推断类型 */
+function infer26(q){ if(q.model) return 'short'; if(q.options) return (q.answer&&q.answer.length>1)?'multi':'single'; return 'judge'; }
+/* 判断题补齐固定选项，使各渲染路径统一 */
+ALL.forEach(function(q){ if(q.type==='judge' && !q.options) q.options=['正确','错误']; });
+var BY_ID = {}; ALL.forEach(function(q){ BY_ID[q.id]=q; });
+var TYPE_NAME={single:'单选题',multi:'多选题',judge:'判断题',blank:'填空题',case:'案例题',short:'简答题',term:'名词解释'};
+var TYPES=['single','multi','judge','blank','case','short','term'];
+var OBJ=['single','multi','judge','blank','case'];
+var CHAP=[['0','基础概念/原则'],['4','第4章 组织环境'],['5','第5章 领导作用'],['6','第6章 策划'],['7','第7章 支持'],['8','第8章 运行'],['9','第9章 绩效评价'],['10','第10章 改进'],['26','2026换版专题']];
+var CHAP_NAME={}; CHAP.forEach(function(c){CHAP_NAME[c[0]]=c[1];});
+
+/* ===== 本地存储 ===== */
+var LSKEY='iso9001_quiz_v1';
+var db={records:{},fav:{},wrong:{},lastRange:null};
+try{var raw=localStorage.getItem(LSKEY); if(raw){var o=JSON.parse(raw); db.records=o.records||{}; db.fav=o.fav||{}; db.wrong=o.wrong||{}; db.lastRange=o.lastRange||null;}}catch(e){}
+function save(){ try{localStorage.setItem(LSKEY,JSON.stringify(db));}catch(e){} }
+function mark(rec){ db.records[rec.id]={ok:rec.ok,n:(db.records[rec.id]?db.records[rec.id].n:0)+1}; if(rec.ok){ if(db.wrong[rec.id]){ } } else { db.wrong[rec.id]=1; } save(); updNav(); }
+function unmarkWrong(id){ if(db.wrong[id]){ delete db.wrong[id]; save(); updNav(); } }
+function toggleFav(id){ if(db.fav[id]) delete db.fav[id]; else db.fav[id]=1; save(); updNav(); }
+function isFav(id){ return !!db.fav[id]; }
+function updNav(){ document.getElementById('nav-wrong').textContent = Object.keys(db.wrong).length? '('+Object.keys(db.wrong).length+')':''; document.getElementById('nav-fav').textContent = Object.keys(db.fav).length? '('+Object.keys(db.fav).length+')':''; }
+
+/* ===== 工具 ===== */
+function el(html){ var d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+var LETTER='ABCDEFGH'.split('');
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+function pct(n,d){ return d? Math.round(n/d*100):0; }
+function fmtTime(s){ s=Math.max(0,s|0); var m=Math.floor(s/60), ss=s%60; return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss; }
+
+/* ===== 路由 ===== */
+var view='home';
+function go(v){ view=v; document.querySelectorAll('#nav button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-go')===v); }); window.scrollTo(0,0); render(); }
+document.getElementById('nav').addEventListener('click',function(e){ var b=e.target.closest('button[data-go]'); if(b) go(b.getAttribute('data-go')); });
+
+/* ===== 首页 ===== */
+function viewHome(){
+  var total=ALL.length, done=Object.keys(db.records).length;
+  var okc=0; Object.keys(db.records).forEach(function(k){ if(db.records[k].ok) okc++; });
+  var cases=ALL.filter(function(q){return q.type==='case';}).length;
+  var h='';
+  h+='<div class="card hero"><h1>ISO 9001:2015 内审员刷题库</h1>'+
+     '<p>面向零基础学员：概念速览 + 经典题型 + <b>案例专题</b>。全部题目附条款出处与解析，边做边学。</p>'+
+     '<span class="pill">共 '+total+' 题</span><span class="pill">案例专题 '+cases+' 题</span><span class="pill">已作答 '+done+' 题</span><span class="pill">答对率 '+pct(okc,Math.max(done,1))+'%</span>'+
+     '<div class="row" style="margin-top:14px"><button class="btn" style="background:#fff;border-color:#fff" onclick="startRange({scope:\'all\'})">开始刷题</button>'+
+     '<button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.6)" onclick="go(\'exam\')">模拟考试</button></div></div>';
+
+  h+='<div class="card"><h2>零基础速览 · 30秒看懂 ISO 9001</h2>'+
+    '<details open><summary>1. ISO 9001 是什么？</summary><p class="small">ISO 9001 是国际标准化组织（ISO）发布的<b>质量管理体系要求</b>标准，现行版本为 <b>2015 版</b>（我国等同采用为 GB/T 19001-2016）。它不规定产品本身的技术指标，而是要求组织建立一套"把事做对、持续改进"的管理体系，以便稳定提供满足顾客和适用法律法规要求的产品和服务，并增强顾客满意。</p></details>'+
+    '<details><summary>2. 七项质量管理原则</summary><p class="small">①以顾客为关注焦点 ②领导作用 ③全员积极参与 ④过程方法 ⑤改进 ⑥循证决策 ⑦关系管理。</p></details>'+
+    '<details><summary>3. PDCA 循环</summary><p class="small"><b>P 策划</b>（第6章）、<b>D 实施</b>（第7、8章）、<b>C 检查</b>（第9章）、<b>A 改进</b>（第10章）。整个标准围绕 PDCA 展开。</p></details>'+
+    '<details><summary>4. 过程方法 & 基于风险的思维</summary><p class="small">把活动看成相互关联的过程来管理（输入→活动→输出），并识别可能影响体系结果的风险与机遇。二者是 2015 版的核心理念。</p></details>'+
+    '<details><summary>5. 标准结构（4~10章）</summary><p class="small">4 组织环境 · 5 领导作用 · 6 策划 · 7 支持 · 8 运行 · 9 绩效评价 · 10 改进。</p></details>'+
+    '<details><summary>6. 内审员做什么？</summary><p class="small">按策划的时间间隔对体系进行内部审核（9.2），收集客观证据，判断是否符合标准和本组织要求，开具不符合项并跟踪整改闭环。审核员<b>不应审核自己的工作</b>，须保持客观公正。</p></details>'+
+    '<details><summary>7. 不符合项判定口诀</summary><p class="small">先看"事实违反了哪条要求"：<br>· 没做/做错 → 找对应条款（如未评价供方→8.4.1）；<br>· 有文件但没执行 → 指向被违反的条款本身；<br>· 文件本身不适宜/未更新 → 7.5.2 / 7.5.3；<br>· 出了不合格未分析原因防再发 → 10.2。</p></details>'+
+    '</div>';
+
+  h+='<div class="card"><h2>按题型练习</h2><div class="grid c3">';
+  TYPES.forEach(function(t){ var n=ALL.filter(function(q){return q.type===t;}).length;
+    h+='<button class="tile" onclick="startRange({scope:\'type\',type:\''+t+'\'})"><div class="t">'+TYPE_NAME[t]+'</div><div class="big">'+n+'</div><div class="small muted">题</div></button>';});
+  h+='</div></div>';
+
+  h+='<div class="card"><h2>按章节练习</h2><div class="grid c4">';
+  CHAP.forEach(function(c){ var n=ALL.filter(function(q){return q.ch===c[0];}).length; if(!n) return;
+    h+='<button class="tile" onclick="startRange({scope:\'chap\',chap:\''+c[0]+'\'})"><div class="t">'+esc(c[1])+'</div><div class="big">'+n+'</div><div class="small muted">题</div></button>';});
+  h+='</div></div>';
+
+  h+='<div class="card"><h2>专题 · 案例专项</h2>'+
+    '<p class="small muted">情景判定题：给出真实审核场景，判断是否符合标准、违反哪一条款。这是内审员最核心的能力，建议反复刷。</p>'+
+    '<div class="grid c2"><button class="tile" onclick="startRange({scope:\'type\',type:\'case\',shuffle:true})"><div class="t">案例专题（全部）</div><div class="big">'+cases+'</div><div class="small muted">题 · 随机顺序</div></button>'+
+    '<button class="tile" onclick="startRange({scope:\'all\',n:20,shuffle:true})"><div class="t">随机20题小测</div><div class="big">20</div><div class="small muted">题 · 混合全部题型</div></button></div></div>';
+
+  var wn=Object.keys(db.wrong).length, fn=Object.keys(db.fav).length;
+  h+='<div class="card"><h2>导出 · 错题集 / 收藏集</h2>'+
+    '<p class="small muted">把错题整理成一份可以打印或存成 PDF 的文档，也可以导出 Markdown / TXT 做笔记。</p>'+
+    '<div class="row"><label class="small row" style="gap:6px;cursor:pointer;margin:0"><input type="checkbox" id="expAns" checked> 包含答案解析</label></div>'+
+    '<div class="row" style="margin-top:4px">'+
+    '<button class="btn" onclick="printSheet(\'wrong\')">🖨 导出错题集（打印/PDF）</button>'+
+    '<button class="btn" onclick="exportMD(\'wrong\')">⬇ 错题集 Markdown</button>'+
+    '<button class="btn" onclick="exportTXT(\'wrong\')">⬇ 错题集 TXT</button>'+
+    '</div><div class="row" style="margin-top:10px;border-top:1px dashed var(--line);padding-top:10px">'+
+    '<button class="btn" onclick="printSheet(\'fav\')">🖨 导出收藏集（打印/PDF）</button>'+
+    '<button class="btn" onclick="exportMD(\'fav\')">⬇ 收藏集 Markdown</button>'+
+    '</div>'+
+    '<div class="small muted" style="margin-top:8px">当前：错题 '+wn+' 题 · 收藏 '+fn+' 题。'+(wn?'':'（还没错题，先去练习吧）')+'</div></div>';
+  return h;
+}
+
+/* ===== 练习设置 ===== */
+var setup={scope:'all',type:'single',chap:'4',n:0,shuffle:false};
+function viewPractice(){
+  var h='<div class="card"><h2>选择练习范围</h2>';
+  h+='<h3>题型</h3><div class="row" id="sp-type">';
+  h+='<button class="chip'+(setup.scope==='all'?' on':'')+'" onclick="spSet(\'scope\',\'all\')">全部题型</button>';
+  TYPES.forEach(function(t){ h+='<button class="chip'+(setup.scope==='type'&&setup.type===t?' on':'')+'" onclick="spSet(\'scope\',\'type\',\''+t+'\')">'+TYPE_NAME[t]+'</button>';});
+  h+='</div>';
+  h+='<h3>章节（可选，仅对非案例生效）</h3><div class="row">';
+  h+='<button class="chip'+(setup.chap==='all'?' on':'')+'" onclick="spSet(\'chap\',\'all\')">全部章节</button>';
+  CHAP.forEach(function(c){ h+='<button class="chip'+(setup.chap===c[0]?' on':'')+'" onclick="spSet(\'chap\',\''+c[0]+'\')">'+esc(c[1])+'</button>';});
+  h+='</div>';
+  h+='<h3>题量</h3><div class="row">';
+  [[0,'全部'],[10,'10题'],[20,'20题'],[30,'30题'],[50,'50题']].forEach(function(o){ h+='<button class="chip'+(setup.n===o[0]?' on':'')+'" onclick="spSet(\'n\','+o[0]+')">'+o[1]+'</button>';});
+  h+='</div>';
+  h+='<h3>顺序</h3><div class="row">';
+  h+='<button class="chip'+(!setup.shuffle?' on':'')+'" onclick="spSet(\'shuffle\',false)">原顺序</button>';
+  h+='<button class="chip'+(setup.shuffle?' on':'')+'" onclick="spSet(\'shuffle\',true)">随机打乱</button>';
+  h+='</div>';
+  var pool=buildPool(setup);
+  h+='<div style="margin-top:16px" class="row"><button class="btn primary" onclick="startRange(setup)">开始练习（'+pool.length+' 题）</button>'+
+     '<button class="btn" onclick="startRange({scope:\'wrong\'})">刷错题（'+Object.keys(db.wrong).length+'）</button>'+
+     '<button class="btn" onclick="startRange({scope:\'fav\'})">刷收藏（'+Object.keys(db.fav).length+'）</button></div>';
+  h+='</div>';
+  return h;
+}
+function spSet(k,v,t){ setup[k]=v; if(k==='scope'&&v==='type'&&t) setup.type=t; if(k==='scope'&&v==='all') setup.chap='all'; render(); }
+
+function buildPool(s){
+  var pool;
+  if(s.scope==='wrong'){ pool=ALL.filter(function(q){return db.wrong[q.id];}); }
+  else if(s.scope==='fav'){ pool=ALL.filter(function(q){return db.fav[q.id];}); }
+  else{
+    pool=ALL.filter(function(q){
+      if(s.scope==='type' && q.type!==s.type) return false;
+      if(s.scope==='chap' && q.ch!==s.chap) return false;
+      if(s.scope==='all' && s.chap && s.chap!=='all' && q.ch!==s.chap) return false;
+      return true;
+    });
+    if(s.scope==='all' && s.chap && s.chap!=='all'){ pool=ALL.filter(function(q){return q.ch===s.chap;}); }
+  }
+  if(s.shuffle) pool=shuffle(pool);
+  if(s.n && pool.length>s.n) pool=pool.slice(0,s.n);
+  return pool;
+}
+
+/* ===== 答题 ===== */
+var S={queue:[],idx:0,ans:{},exam:false,started:0,timer:null,limit:0,title:''};
+function startRange(s){
+  var pool=buildPool(s);
+  if(!pool.length){ alert('该范围暂无题目。'); return; }
+  S.queue=pool; S.idx=0; S.ans={}; S.exam=false; S.limit=0; S.preReveal=false; S.resultOnlyWrong=false; S.drill=false;
+  S.title = s.scope==='wrong'?'错题本':(s.scope==='fav'?'收藏夹':(s.scope==='type'?TYPE_NAME[s.type]:(s.scope==='chap'?CHAP_NAME[s.chap]:'综合练习')));
+  go('quiz');
+}
+function viewQuiz(){
+  if(!S.queue.length){ return '<div class="card">暂无题目。<br><br><button class="btn primary" onclick="go(\'home\')">返回首页</button></div>'; }
+  if(S.idx>=S.queue.length){ return completionHTML(); }
+  var q=S.queue[S.idx];
+  var a=S.ans[q.id]||null, out='';
+  var answered = !!a;
+  var shown = S.exam ? false : (answered || !!S.preReveal);
+  out+='<div class="card">';
+  out+='<div class="row small muted"><span>'+esc(S.title)+'</span>'+(S.drill?'<span class="badge" style="background:var(--warn-l);color:#92400e">第 '+(S.drillRound||1)+' 轮 · 当前错题 '+Object.keys(db.wrong).length+'</span>':'')+'<span class="spacer"></span>';
+  if(S.exam){ out+='<span class="timer" id="clock"></span>'; }
+  out+='<span>'+ (S.idx+1) +' / '+ S.queue.length +'</span></div>';
+  out+='<div class="progress" style="margin:8px 0 14px"><i style="width:'+((S.idx)/S.queue.length*100)+'%"></i></div>';
+
+  out+='<div class="qhead"><span class="badge t-'+q.type+'">'+TYPE_NAME[q.type]+'</span>'+
+       '<span class="badge lv">'+esc(CHAP_NAME[q.ch]||'综合')+'</span>'+
+       (q.ref?'<span class="tag">'+esc(q.ref)+'</span>':'')+
+       '<span class="spacer"></span><button class="btn sm" onclick="toggleFav(\''+q.id+'\');render()">'+(isFav(q.id)?'★ 已收藏':'☆ 收藏')+'</button></div>';
+  out+='<div class="qstem">'+esc(q.stem)+'</div>';
+
+  if(q.type==='blank'){ out+=renderBlank(q,a,shown); if(shown) out+=explainBox(q,a); }
+  else if(q.type==='short'||q.type==='term'){ out+=renderShort(q,a,shown); }
+  else { out+=renderOptions(q,a,shown); if(shown) out+=explainBox(q,a); }
+
+  out+='<div class="bar">';
+  out+='<button class="btn" onclick="nav(-1)" '+(S.idx===0?'disabled':'')+'>← 上一题</button>';
+  if(!S.exam && !answered && (q.type==='multi'||q.type==='blank')){
+    out+='<button class="btn primary" onclick="submitCur()" id="subbtn">确认作答</button>';
+  }
+  out+='<button class="btn" onclick="nav(1)">'+(S.idx>=S.queue.length-1?'完成':'下一题 →')+'</button>';
+  out+='<span class="spacer"></span>';
+  if(!S.exam){ out+='<button class="btn ghost sm" onclick="jumpPanel()">题号</button>'; }
+  else { out+='<button class="btn primary sm" onclick="submitExam()">交卷</button>'; }
+  out+='</div>';
+  out+='<div id="jumppanel" class="hide" style="margin-top:12px"></div>';
+  out+='</div>';
+  return out;
+}
+function renderOptions(q,a,shown){
+  var out=''; var multi=(q.type==='multi');
+  var opts = q.options || (q.type==='judge'?['正确','错误']:[]);
+  var picks = a? a.pick||[] : [];
+  opts.forEach(function(opt,i){
+    var cls='opt'+(multi?' multi':'');
+    if(shown){
+      cls+=' dis';
+      var isAns=(q.answer.indexOf(i)>=0);
+      var isPick=(picks.indexOf(i)>=0);
+      if(isAns) cls+=' right'; else if(isPick) cls+=' wrong';
+    } else if(picks.indexOf(i)>=0){ cls+=' pick'; }
+    var click = shown?'' : ' onclick="pick(\''+q.id+'\','+i+')"';
+    out+='<div class="'+cls+'"'+click+'><span class="mk">'+LETTER[i]+'</span><span style="flex:1">'+esc(opt)+'</span></div>';
+  });
+  if(multi && !shown){ out+='<div class="small muted">多选题：选择全部正确项后点"确认作答"。</div>'; }
+  return out;
+}
+function renderShort(q,a,shown){
+  var out='';
+  if(!shown){
+    out+='<div class="pq-note" style="color:var(--muted);font-size:13.5px;margin-bottom:10px">'+(q.type==='term'?'先自己写出定义，再看参考答案。':'先自己在心里/纸上答一遍，再看参考答案。')+'</div>';
+    out+='<button class="btn primary" onclick="showAnswer(\''+q.id+'\')">👁 显示参考答案</button>';
+    return out;
+  }
+  out+='<div class="ansbox" style="white-space:pre-wrap"><b>参考答案</b><br>'+esc(q.model)+'</div>';
+  if(q.key&&q.key.length){ out+='<div style="margin-top:8px"><span class="small muted">要点</span><ul style="margin:4px 0 0;padding-left:20px">'+q.key.map(function(k){return '<li class="small">'+esc(k)+'</li>';}).join('')+'</ul></div>'; }
+  if(q.explain){ out+='<div class="small muted" style="margin-top:8px">💡 '+esc(q.explain)+'</div>'; }
+  if(q.ref){ out+='<div style="margin-top:6px"><span class="tag">依据 '+esc(q.ref)+'</span></div>'; }
+  var self=(a&&a.self!=null)?a.self:null;
+  out+='<div class="row" style="margin-top:12px;border-top:1px dashed var(--line);padding-top:10px"><span class="small muted">自评（对照参考答案）：</span>'+
+    '<button class="btn sm'+(self===true?' primary':'')+'" onclick="selfJudge(\''+q.id+'\',true)">✔ 我答对了</button>'+
+    '<button class="btn sm'+(self===false?' primary':'')+'" onclick="selfJudge(\''+q.id+'\',false)">✘ 没答全</button>'+
+    (self!=null?'<span class="small '+(self?'':'')+'" style="color:'+(self?'#15803d':'#b91c1c')+'">'+(self?'已记为掌握':'已记入错题本')+'</span>':'')+'</div>';
+  return out;
+}
+function showAnswer(id){ var c=S.ans[id]||{}; c.revealed=true; S.ans[id]=c; render(); }
+function selfJudge(id,ok){ var c=S.ans[id]||{}; c.revealed=true; c.self=ok; c.ok=ok; c.graded=true; S.ans[id]=c; mark({id:id,ok:ok}); if(ok) unmarkWrong(id); render(); }
+function renderBlank(q,a,shown){
+  var n=q.answers.length, out='<div class="blanks">';
+  for(var i=0;i<n;i++){
+    var val = a? (a.text? a.text[i]||'':'') : '';
+    out+='<div class="blankrow"><span class="idx">第'+(i+1)+'空</span>';
+    if(shown){ out+='<input type="text" value="'+esc(val)+'" disabled>'; }
+    else{ out+='<input type="text" id="bin'+i+'" value="'+esc(val)+'" placeholder="请输入答案">'; }
+    out+='</div>';
+  }
+  if(shown){ out+='<div class="ansbox">参考答案：<b>'+q.answers.map(function(x){return esc(x.split('|')[0]);}).join(' ／ ')+'</b></div>'; }
+  out+='</div>';
+  return out;
+}
+function explainBox(q,a){
+  var ok = a? a.ok : false;
+  var head;
+  if(S.exam){ head=''; }
+  else if(!a){ head='<b>参考答案</b><br>'; }
+  else { head = ok? '<b style="color:#15803d">✔ 回答正确</b><br>' : '<b style="color:#b91c1c">✘ 回答错误</b><br>'; }
+  var ansTxt;
+  if(q.type==='blank'){ ansTxt='参考答案：'+q.answers.map(function(x){return x.split('|')[0];}).join(' ／ '); }
+  else if(q.type==='judge'){ ansTxt='正确答案：'+(q.answer[0]===0?'正确':'错误'); }
+  else { ansTxt='正确答案：'+q.answer.map(function(i){return LETTER[i];}).join('')+'（'+q.answer.map(function(i){return q.options[i];}).join('；')+'）'; }
+  return '<div class="explain '+(S.exam||!a?'':(ok?'ok':'bad'))+'">'+head+ansTxt+'<br><span class="muted small">'+esc(q.explain||'')+'</span>'+(q.ref?'<br><span class="tag">依据 '+esc(q.ref)+'</span>':'')+'</div>';
+}
+function pick(id,i){
+  var q=BY_ID[id]; var cur=S.ans[id];
+  if(q.type==='multi'){
+    var picks = cur? cur.pick.slice():[];
+    var at=picks.indexOf(i); if(at>=0) picks.splice(at,1); else picks.push(i);
+    S.ans[id]={pick:picks,text:null};
+    render();
+  } else if(q.type==='judge' || q.type==='single' || q.type==='case'){
+    var ok = q.answer.length===1 && q.answer[0]===i;
+    S.ans[id]={pick:[i],ok:ok,graded:true};
+    if(!S.exam){ mark({id:id,ok:ok}); if(ok) unmarkWrong(id); }
+    render();
+  }
+}
+function submitCur(){
+  var q=S.queue[S.idx], a=S.ans[q.id]; var ok=false;
+  if(q.type==='multi'){
+    var picks=(a&&a.pick)||[]; picks=picks.slice().sort(function(x,y){return x-y;});
+    var ans=q.answer.slice().sort(function(x,y){return x-y;});
+    ok = picks.length===ans.length && picks.every(function(v,i){return v===ans[i];});
+    S.ans[q.id]={pick:(a&&a.pick)||[],ok:ok,graded:true};
+  } else if(q.type==='blank'){
+    var text=[], allok=true, n=q.answers.length;
+    for(var i=0;i<n;i++){ var inp=document.getElementById('bin'+i); var v=inp?inp.value:''; text.push(v);
+      var acc=q.answers[i].split('|').map(norm); if(acc.indexOf(norm(v))<0) allok=false; }
+    ok=allok; S.ans[q.id]={text:text,ok:ok,graded:true};
+  }
+  mark({id:q.id,ok:ok}); if(ok) unmarkWrong(q.id);
+  render();
+}
+function norm(s){ return String(s||'').replace(/\s+/g,'').replace(/[，。、,.;；:：""''（）()]/g,'').toLowerCase(); }
+function nav(d){ var ni=S.idx+d; if(ni<0||ni>S.queue.length) return; S.idx=ni; render(); }
+function jumpPanel(){
+  var p=document.getElementById('jumppanel'); if(!p) return; p.classList.toggle('hide');
+  var h='<div class="jump">';
+  S.queue.forEach(function(q,i){
+    var a=S.ans[q.id]; var cls='';
+    if(a&&a.graded) cls = a.ok?'ok':'no';
+    if(i===S.idx) cls+=' cur';
+    h+='<button class="'+cls+'" onclick="S.idx='+i+';render()">'+(i+1)+'</button>';
+  });
+  h+='</div>'; p.innerHTML=h;
+}
+
+/* ===== 模拟考试 ===== */
+function viewExamSetup(){
+  var h='<div class="card"><h2>模拟考试</h2><p class="small muted">随机抽题，限时作答，中途不显示对错，交卷后统一评分并逐题解析。错题自动进入错题本。</p>';
+  h+='<div class="grid c3">';
+  [[20,20],[30,30],[50,50]].forEach(function(o){ h+='<button class="tile" onclick="startExam('+o[0]+','+o[1]+')"><div class="t">'+o[0]+' 题</div><div class="big">'+o[1]+'</div><div class="small muted">分钟</div></button>';});
+  h+='</div>';
+  h+='<div style="margin-top:14px" class="notice">小提示：试卷按各题型比例随机抽取，包含案例专题题。考完可"再来一套"。</div></div>';
+  return h;
+}
+function startExam(n,min){
+  var pick=[];
+  var ratio={single:.4,multi:.2,judge:.2,blank:.1,case:.1};
+  var POOL=ALL.filter(function(q){return OBJ.indexOf(q.type)>=0;});
+  Object.keys(ratio).forEach(function(t){ var arr=shuffle(POOL.filter(function(q){return q.type===t;})); pick=pick.concat(arr.slice(0,Math.round(n*ratio[t]))); });
+  pick=shuffle(pick).slice(0,n);
+  while(pick.length<n){ var extra=shuffle(POOL); for(var i=0;i<extra.length&&pick.length<n;i++){ if(pick.indexOf(extra[i])<0) pick.push(extra[i]); } if(pick.length<n) break; }
+  S.queue=pick; S.idx=0; S.ans={}; S.exam=true; S.title='模拟考试'; S.limit=min*60; S.started=Date.now(); S.preReveal=false; S.resultOnlyWrong=false; S.drill=false;
+  go('quiz'); startClock();
+}
+function startClock(){
+  if(S.timer) clearInterval(S.timer);
+  S.timer=setInterval(function(){
+    if(!S.exam){ clearInterval(S.timer); return; }
+    var left=S.limit-Math.floor((Date.now()-S.started)/1000);
+    var c=document.getElementById('clock'); if(c) c.textContent='⏱ '+fmtTime(left);
+    if(left<=0){ clearInterval(S.timer); submitExam(); }
+  },500);
+}
+function submitExam(){
+  var unanswered=0, ok=0;
+  S.queue.forEach(function(q){ var a=S.ans[q.id]; var good=false;
+    if(!a){ unanswered++; }
+    else if(q.type==='multi'){ var p=(a.pick||[]).slice().sort(); var ans=q.answer.slice().sort(); good=p.length===ans.length&&p.every(function(v,i){return v===ans[i];}); }
+    else if(q.type==='blank'){ var txt=a.text||[]; good=q.answers.length===txt.length&&q.answers.every(function(acc,i){ return acc.split('|').map(norm).indexOf(norm(txt[i]))>=0; }); }
+    else { good=!!a.ok; }
+    if(a){ if(good) ok++; a.graded=true; a.ok=good; if(good) unmarkWrong(q.id); else db.wrong[q.id]=1; }
+    if(a) db.records[q.id]={ok:good,n:(db.records[q.id]?db.records[q.id].n:0)+1};
+  });
+  save(); updNav();
+  S.exam=false; if(S.timer) clearInterval(S.timer);
+  S.scoreSummary={ok:ok,total:S.queue.length,unanswered:unanswered};
+  go('result');
+}
+function viewResult(){
+  var s=S.scoreSummary||{ok:0,total:0}; var p=pct(s.ok,s.total);
+  var color=p>=80?'#16a34a':(p>=60?'#d97706':'#dc2626');
+  var msg=p>=80?'不错，基础扎实，继续保持。':(p>=60?'及格线附近，建议重点复习错题与案例题。':'别急，回到"首页速览"补齐概念，再刷错题本。');
+  var h='<div class="card" style="text-align:center">';
+  h+='<div class="score-ring" style="background:conic-gradient('+color+' 0deg, '+color+' '+(p*3.6)+'deg, #e8edf5 '+(p*3.6)+'deg)"><div class="v">'+p+'<span style="font-size:16px">分</span></div></div>';
+  h+='<div class="muted">答对 '+s.ok+' / '+s.total+' 题'+(s.unanswered?('　未答 '+s.unanswered+' 题'):'')+'</div><p>'+msg+'</p>';
+  var wn=Object.keys(db.wrong).length;
+  h+='<div class="row" style="justify-content:center"><button class="btn primary" onclick="go(\'exam\')">再来一套</button><button class="btn" onclick="startRange({scope:\'wrong\'})">刷错题本 ('+wn+')</button><button class="btn" onclick="startDrill()">🎯 错题精练</button><button class="btn" onclick="go(\'home\')">返回首页</button></div></div>';
+
+  var onlyWrong=!!S.resultOnlyWrong;
+  var wrongN=0, tot=0;
+  S.queue.forEach(function(q){ tot++; if(!isCorrect(q,S.ans[q.id]||null)) wrongN++; });
+  h+='<div class="card"><div class="row no-print"><h2 style="margin:0">答卷回顾 · 正确答案与解析</h2><span class="spacer"></span>';
+  h+='<button class="btn sm'+(onlyWrong?'':' primary')+'" onclick="S.resultOnlyWrong=false;render()">全部 '+tot+'</button>';
+  h+='<button class="btn sm'+(onlyWrong?' primary':'')+'" onclick="S.resultOnlyWrong=true;render()">只看错题 '+wrongN+'</button>';
+  h+='<button class="btn sm" onclick="printReview()">🖨 打印/PDF</button>';
+  h+='<button class="btn sm" onclick="exportReview()">⬇ Markdown</button></div>';
+  h+='<div class="small muted no-print" style="margin:6px 0 2px">每题均给出正确答案、解析与依据条款；答错和未答的题已自动进入错题本。</div>';
+  var n=0;
+  S.queue.forEach(function(q,i){ var a=S.ans[q.id]||null; if(onlyWrong && isCorrect(q,a)) return; n++; h+=reviewItem(q,a,i+1); });
+  if(!n) h+='<p class="muted" style="margin-top:10px">没有需要回顾的题目 🎉</p>';
+  h+='</div>';
+  return h;
+}
+function isCorrect(q,a){
+  if(!a) return false;
+  if(q.type==='multi'){ var p=(a.pick||[]).slice().sort(function(x,y){return x-y;}); var an=q.answer.slice().sort(function(x,y){return x-y;}); return p.length===an.length && p.every(function(v,i){return v===an[i];}); }
+  if(q.type==='blank'){ var t=a.text||[]; return q.answers.length===t.length && q.answers.every(function(acc,i){ return acc.split('|').map(norm).indexOf(norm(t[i]))>=0; }); }
+  if(q.type==='short'||q.type==='term'){ return !!a.self; }
+  return !!a.ok;
+}
+function reviewItem(q,a,no){
+  var ok=isCorrect(q,a);
+  var label = !a? '<span class="badge" style="background:#f1f5f9;color:#475569">未作答</span>' : (ok? '<span class="badge" style="background:var(--ok-l);color:#15803d">✔ 正确</span>' : '<span class="badge" style="background:var(--bad-l);color:#b91c1c">✘ 错误</span>');
+  var h='<div style="border:1px solid var(--line);border-left:4px solid '+(ok?'var(--ok)':(a?'var(--bad)':'#94a3b8'))+';border-radius:12px;padding:12px 14px;margin-bottom:12px;background:#fff">';
+  h+='<div class="qhead"><span class="badge t-'+q.type+'">'+TYPE_NAME[q.type]+'</span>'+label+(q.ref?'<span class="tag">'+esc(q.ref)+'</span>':'')+'<span class="spacer"></span><span class="small muted">第 '+no+' 题</span></div>';
+  h+='<div class="qstem" style="font-size:15px;margin:6px 0 8px">'+esc(q.stem)+'</div>';
+  if(q.type==='blank'){
+    var mine=a? (a.text||[]).filter(function(x){return x;}).join(' / ') : '';
+    h+='<div class="small">你的答案：<b>'+esc(mine||'（未作答）')+'</b></div>';
+    h+='<div class="ansbox">正确答案：<b>'+q.answers.map(function(x){return esc(x.split('|')[0]);}).join(' ／ ')+'</b></div>';
+  } else if(q.type==='short'||q.type==='term'){
+    h+='<div class="ansbox" style="white-space:pre-wrap"><b>参考答案</b><br>'+esc(q.model)+'</div>';
+  } else {
+    var picks=a? (a.pick||[]):[];
+    h+='<div style="margin:6px 0">';
+    (q.options||[]).forEach(function(o,j){
+      var isAns=q.answer.indexOf(j)>=0, isPick=picks.indexOf(j)>=0;
+      h+='<div class="opt dis'+(isAns?' right':(isPick?' wrong':''))+'" style="margin-bottom:6px"><span class="mk">'+LETTER[j]+'</span><span style="flex:1">'+esc(o)+'</span></div>';
+    });
+    h+='</div>';
+    h+='<div class="small">正确答案：<b>'+esc(answerText(q))+'</b>'+(picks.length? '　你的答案：'+picks.map(function(i){return LETTER[i];}).join('') : '　你的答案：<span class="muted">未作答</span>')+'</div>';
+  }
+  h+='<div class="explain '+(ok?'ok':(a?'bad':''))+'" style="margin-top:10px"><b>解析：</b>'+esc(q.explain||'（见上文）')+(q.ref?'<br><span class="tag">依据 '+esc(q.ref)+'</span>':'')+'</div>';
+  h+='</div>';
+  return h;
+}
+function buildReviewHTML(onlyWrong){
+  var items=[];
+  S.queue.forEach(function(q,i){ var a=S.ans[q.id]||null; if(onlyWrong && isCorrect(q,a)) return; items.push([q,a,i+1]); });
+  var h='<div class="sheet"><h1>模拟考答卷解析</h1><div class="sheet-sub">得分 '+(S.scoreSummary?pct(S.scoreSummary.ok,S.scoreSummary.total):0)+' 分 · 共 '+S.queue.length+' 题 · 本页 '+items.length+' 题 · '+today()+' · 依据 ISO 9001:2015</div>';
+  items.forEach(function(it){
+    var q=it[0],a=it[1],no=it[2]; var ok=isCorrect(q,a);
+    h+='<div class="pq"><div class="pq-h"><b>'+no+'.</b> <span class="pq-meta">['+TYPE_NAME[q.type]+'·'+(CHAP_NAME[q.ch]||'综合')+']　'+(ok?'✔ 正确':(a?'✘ 错误':'未作答'))+'</span></div>';
+    h+='<div class="pq-stem">'+esc(q.stem)+'</div>';
+    if(q.type==='blank'||q.type==='short'||q.type==='term'){ h+='<div class="pq-opts"><div class="pq-note">（'+(q.type==='blank'?'填空题':(q.type==='term'?'名词解释':'简答题'))+'）</div></div>'; }
+    else { h+='<div class="pq-opts">'; (q.options||[]).forEach(function(o,j){ h+='<div>'+(q.answer.indexOf(j)>=0?'【正确答案】':'')+LETTER[j]+'. '+esc(o)+'</div>'; }); h+='</div>'; }
+    h+='<div class="pq-ans"><b>正确答案：'+esc(answerText(q))+'</b><br>解析：'+esc(q.explain||'')+(q.ref?('　［依据 '+esc(q.ref)+'］'):'')+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+function printReview(){
+  var old=document.getElementById('printarea'); if(old) old.remove();
+  var d=document.createElement('div'); d.id='printarea'; d.innerHTML=buildReviewHTML(!!S.resultOnlyWrong);
+  document.body.appendChild(d);
+  var t0=document.title; document.title='模拟考答卷解析-'+today();
+  function done(){ var x=document.getElementById('printarea'); if(x) x.remove(); document.title=t0; window.onafterprint=null; }
+  window.onafterprint=done; try{ window.print(); }catch(e){} setTimeout(done,60000);
+}
+function exportReview(){
+  var only=!!S.resultOnlyWrong;
+  var t='# 模拟考答卷解析\n\n> 得分 '+(S.scoreSummary?pct(S.scoreSummary.ok,S.scoreSummary.total):0)+' 分 · '+today()+' · 依据 ISO 9001:2015\n\n';
+  S.queue.forEach(function(q,i){ var a=S.ans[q.id]||null; if(only&&isCorrect(q,a)) return; var ok=isCorrect(q,a);
+    t+='## '+(i+1)+'. ['+TYPE_NAME[q.type]+'·'+(CHAP_NAME[q.ch]||'综合')+']　'+(ok?'✔ 正确':(a?'✘ 错误':'未作答'))+'\n\n'+q.stem+'\n\n';
+    if(!(q.type==='blank'||q.type==='short'||q.type==='term')){ (q.options||[]).forEach(function(o,j){ t+='- '+(q.answer.indexOf(j)>=0?'**[正确]** ':'')+LETTER[j]+'. '+o+'\n'; }); t+='\n'; }
+    t+='**正确答案：** '+answerText(q)+'  \n**解析：** '+(q.explain||'')+(q.ref?('  \n**依据：** '+q.ref):'')+'\n\n---\n\n';
+  });
+  download('ISO9001-模拟考答卷解析-'+today()+'.md', t, 'text/markdown;charset=utf-8');
+}
+
+/* ===== 错题 / 收藏 ===== */
+function viewList(kind){
+  var ids=Object.keys(kind==='wrong'?db.wrong:db.fav);
+  var title = kind==='wrong'?'错题本':'收藏夹';
+  var h='<div class="card"><div class="row"><h2 style="margin:0">'+title+'</h2><span class="spacer"></span>'+
+    (ids.length?'<button class="btn primary sm" onclick="startRange({scope:\''+kind+'\',shuffle:true})">开始刷 ('+ids.length+')</button>'+
+    (kind==='wrong'?'<button class="btn sm" onclick="startDrill()">🎯 错题精练（清零为止）</button>':'')+
+    '<button class="btn sm" onclick="clearList(\''+kind+'\')">清空</button>':'')+'</div>';
+  if(ids.length){
+    h+='<div class="row no-print" style="margin-top:10px;border-top:1px dashed var(--line);padding-top:10px">'+
+       '<span class="small muted">导出'+kwOf(kind)+'：</span>'+
+       '<label class="small row" style="gap:6px;cursor:pointer;margin:0"><input type="checkbox" id="expAns" checked> 包含答案解析</label>'+
+       '<button class="btn sm" onclick="printSheet(\''+kind+'\')">🖨 打印 / 存为 PDF</button>'+
+       '<button class="btn sm" onclick="exportMD(\''+kind+'\')">⬇ 导出 Markdown (.md)</button>'+
+       '<button class="btn sm" onclick="exportTXT(\''+kind+'\')">⬇ 导出 TXT</button>'+
+       '</div>';
+  }
+  if(!ids.length){ h+='<p class="muted" style="margin-top:10px">还没有记录。去练习吧～</p></div>'; return h; }
+  h+='<div class="small muted" style="margin:8px 0">共 '+ids.length+' 题</div>';
+  ids.forEach(function(id){ var q=BY_ID[id]; if(!q) return;
+    var rec=db.records[id];
+    h+='<div class="kv" onclick="jumpTo(\''+id+'\')" style="cursor:pointer"><span><span class="badge t-'+q.type+'">'+TYPE_NAME[q.type]+'</span>'+esc(q.stem.slice(0,42))+(q.stem.length>42?'…':'')+'</span><span class="muted small">'+esc(q.ref||'')+'</span></div>';
+  });
+  h+='</div>';
+  return h;
+}
+function clearList(kind){ if(!confirm('确定清空？')) return; if(kind==='wrong') db.wrong={}; else db.fav={}; save(); updNav(); render(); }
+function jumpTo(id){ S.queue=[BY_ID[id]]; S.idx=0; S.exam=false; S.title='解析回顾'; S.limit=0; S.ans={}; S.preReveal=true; S.drill=false; go('quiz'); }
+
+/* ===== 错题精练（清零为止） ===== */
+function startDrill(){
+  var ids=Object.keys(db.wrong);
+  if(!ids.length){ alert('当前没有错题，已经很棒了 🎉'); return; }
+  var qs=shuffle(ids.map(function(id){return BY_ID[id];}).filter(Boolean));
+  S.queue=qs; S.idx=0; S.ans={}; S.exam=false; S.limit=0; S.preReveal=false; S.resultOnlyWrong=false;
+  S.drill=true; S.title='错题精练'; S.drillRound=1;
+  go('quiz');
+}
+function drillNextRound(){
+  var qs=shuffle(Object.keys(db.wrong).map(function(id){return BY_ID[id];}).filter(Boolean));
+  S.queue=qs; S.idx=0; S.ans={}; S.exam=false; S.drill=true; S.title='错题精练';
+  S.drillRound=(S.drillRound||1)+1;
+  if(!qs.length){ render(); return; }
+  go('quiz');
+}
+function completionHTML(){
+  var qs=S.queue, ok=0;
+  qs.forEach(function(q){ if(isCorrect(q,S.ans[q.id]||null)) ok++; });
+  var h='<div class="card" style="text-align:center">';
+  if(S.drill){
+    var remain=Object.keys(db.wrong).length;
+    if(remain>0){
+      h+='<h2>本轮完成 · 还剩 '+remain+' 道错题</h2><p class="muted">第 '+(S.drillRound||1)+' 轮：答对 '+ok+' / '+qs.length+' 题</p>';
+      h+='<div class="row" style="justify-content:center"><button class="btn primary" onclick="drillNextRound()">🎯 继续下一轮（仅剩 '+remain+' 题）</button><button class="btn" onclick="go(\'wrong\')">去错题本</button><button class="btn" onclick="go(\'home\')">返回首页</button></div>';
+    } else {
+      h+='<h2>🎉 错题已全部清零！</h2><p class="muted">第 '+(S.drillRound||1)+' 轮：答对 '+ok+' / '+qs.length+' 题</p>';
+      h+='<div class="row" style="justify-content:center"><button class="btn primary" onclick="go(\'stats\')">看看统计</button><button class="btn" onclick="go(\'home\')">返回首页</button></div>';
+    }
+  } else {
+    h+='<h2>本轮练习完成</h2><p class="muted">答对 '+ok+' / '+qs.length+' 题</p>';
+    h+='<div class="row" style="justify-content:center"><button class="btn" onclick="S.idx=0;S.ans={};render()">重做这一轮</button><button class="btn" onclick="startRange({scope:\'wrong\'})">刷错题本</button><button class="btn primary" onclick="go(\'home\')">返回首页</button></div>';
+  }
+  h+='</div>';
+  return h;
+}
+
+/* ===== 导出（错题集 / 收藏集） ===== */
+function today(){ var d=new Date(); function p(n){return (n<10?'0':'')+n;} return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+function answerText(q){
+  if(q.type==='blank') return q.answers.map(function(a){return a.split('|')[0];}).join(' ／ ');
+  if(q.type==='short'||q.type==='term') return q.model||'';
+  if(q.type==='judge') return q.answer[0]===0?'正确':'错误';
+  return q.answer.map(function(i){return LETTER[i];}).join('')+'（'+q.answer.map(function(i){return q.options[i];}).join('；')+'）';
+}
+function qMeta(q){ return '['+TYPE_NAME[q.type]+'·'+(CHAP_NAME[q.ch]||'综合')+']'+(q.ref?(' '+q.ref):''); }
+function orderedList(kind){
+  var ids=Object.keys(kind==='wrong'?db.wrong:db.fav);
+  var qs=ids.map(function(id){return BY_ID[id];}).filter(Boolean);
+  var chO={}; CHAP.forEach(function(c,i){chO[c[0]]=i;});
+  var tyO={single:0,multi:1,judge:2,blank:3,case:4};
+  qs.sort(function(a,b){ return (chO[a.ch]-chO[b.ch]) || (tyO[a.type]-tyO[b.type]) || (a.id<b.id?-1:1); });
+  return qs;
+}
+function readExp(){ var c=document.getElementById('expAns'); return c? !!c.checked : true; }
+function kwOf(kind){ return kind==='wrong'?'错题集':'收藏题集'; }
+function buildPrintHTML(kind, withAnswer){
+  var qs=orderedList(kind); var kw=kwOf(kind); var h='<div class="sheet">';
+  h+='<h1>ISO 9001 内审员 · '+kw+'</h1>';
+  h+='<div class="sheet-sub">共 '+qs.length+' 题 · 生成日期 '+today()+' · 来源：ISO 9001 内审员刷题库（依据 ISO 9001:2015）</div>';
+  qs.forEach(function(q,i){
+    h+='<div class="pq"><div class="pq-h"><b>'+(i+1)+'.</b> <span class="pq-meta">'+esc(qMeta(q))+'</span></div>';
+    h+='<div class="pq-stem">'+esc(q.stem)+'</div>';
+    if(q.type==='blank'){ h+='<div class="pq-opts"><div class="pq-note">（填空题，请自行作答）</div></div>'; }
+    else if(q.type==='short'||q.type==='term'){ h+='<div class="pq-opts"><div class="pq-note">（'+(q.type==='term'?'名词解释':'简答题')+'，自行作答；参考答案见下）</div></div>'; }
+    else { h+='<div class="pq-opts">'; q.options.forEach(function(o,j){ h+='<div>'+(q.type==='judge'?((j===0?'对':'错')+'. '):(LETTER[j]+'. '))+esc(o)+'</div>'; }); h+='</div>'; }
+    if(withAnswer){ h+='<div class="pq-ans"><b>答案：'+esc(answerText(q))+'</b><br>解析：'+esc(q.explain||'')+(q.ref?('　［依据 '+esc(q.ref)+'］'):'')+'</div>'; }
+    h+='</div>';
+  });
+  if(!withAnswer && qs.length){ h+='<div class="pq-appendix"><h2>参考答案</h2>'; qs.forEach(function(q,i){ h+='<div>'+(i+1)+'. '+esc(answerText(q))+(q.ref?('　［'+esc(q.ref)+'］'):'')+'</div>'; }); h+='</div>'; }
+  h+='</div>';
+  return h;
+}
+function printSheet(kind){
+  var old=document.getElementById('printarea'); if(old) old.remove();
+  var d=document.createElement('div'); d.id='printarea'; d.innerHTML=buildPrintHTML(kind, readExp());
+  document.body.appendChild(d);
+  var t0=document.title; document.title=kwOf(kind)+'-'+today();
+  function done(){ var x=document.getElementById('printarea'); if(x) x.remove(); document.title=t0; window.onafterprint=null; }
+  window.onafterprint=done;
+  try{ window.print(); }catch(e){ alert('无法调起打印，请用“导出 Markdown/TXT”代替。'); }
+  setTimeout(done, 60000);
+}
+function buildMD(kind, withAnswer){
+  var qs=orderedList(kind); var kw=kwOf(kind);
+  var t='# ISO 9001 内审员 · '+kw+'\n\n> 共 '+qs.length+' 题 · 生成日期 '+today()+' · 来源：ISO 9001 内审员刷题库（依据 ISO 9001:2015）\n\n';
+  if(!qs.length) t+='（暂无题目）\n';
+  qs.forEach(function(q,i){
+    t+='## '+(i+1)+'. '+qMeta(q)+'\n\n'+q.stem+'\n\n';
+    if(q.type==='blank'){ t+='*（填空题）*\n\n'; }
+    else if(q.type==='short'||q.type==='term'){ t+='*（'+(q.type==='term'?'名词解释':'简答题')+'）*\n\n'; }
+    else { q.options.forEach(function(o,j){ t+='- '+(q.type==='judge'?((j===0?'对':'错')+'.'):(LETTER[j]+'.'))+' '+o+'\n'; }); t+='\n'; }
+    if(withAnswer) t+='**答案：** '+answerText(q)+'  \n**解析：** '+(q.explain||'')+(q.ref?('  \n**依据：** '+q.ref):'')+'\n\n';
+    t+='---\n\n';
+  });
+  if(!withAnswer && qs.length){ t+='## 参考答案\n\n'; qs.forEach(function(q,i){ t+=(i+1)+'. '+answerText(q)+(q.ref?('　［'+q.ref+'］'):'')+'\n'; }); }
+  return t;
+}
+function buildTXT(kind, withAnswer){
+  var qs=orderedList(kind); var kw=kwOf(kind);
+  var t='ISO 9001 内审员 · '+kw+'\n共 '+qs.length+' 题 · 生成日期 '+today()+'\n============================\n\n';
+  if(!qs.length) t+='（暂无题目）\n';
+  qs.forEach(function(q,i){
+    t+=(i+1)+'. '+qMeta(q)+'\n'+q.stem+'\n';
+    if(q.type==='blank'){ t+='（填空题）\n'; }
+    else if(q.type==='short'||q.type==='term'){ t+='（'+(q.type==='term'?'名词解释':'简答题')+'）\n'; }
+    else { q.options.forEach(function(o,j){ t+='   '+(q.type==='judge'?((j===0?'对':'错')+'.'):(LETTER[j]+'.'))+' '+o+'\n'; }); }
+    if(withAnswer) t+='   【答案】'+answerText(q)+'\n   【解析】'+(q.explain||'')+(q.ref?('   ［'+q.ref+'］'):'')+'\n';
+    t+='\n';
+  });
+  if(!withAnswer && qs.length){ t+='参考答案\n----------------------------\n'; qs.forEach(function(q,i){ t+=(i+1)+'. '+answerText(q)+(q.ref?('　［'+q.ref+'］'):'')+'\n'; }); }
+  return t;
+}
+function download(name, text, mime){
+  try{
+    var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+  }catch(e){ alert('导出失败：'+e.message); }
+}
+function exportMD(kind){ var withA=readExp(); if(!orderedList(kind).length){alert('没有可导出的题目。');return;} if(!withA && !confirm('未勾选“包含答案解析”，答案将附在文末。继续导出？')) return; download('ISO9001-'+kwOf(kind)+'-'+today()+'.md', buildMD(kind, withA), 'text/markdown;charset=utf-8'); }
+function exportTXT(kind){ var withA=readExp(); if(!orderedList(kind).length){alert('没有可导出的题目。');return;} if(!withA && !confirm('未勾选“包含答案解析”，答案将附在文末。继续导出？')) return; download('ISO9001-'+kwOf(kind)+'-'+today()+'.txt', buildTXT(kind, withA), 'text/plain;charset=utf-8'); }
+
+/* ===== 统计 ===== */
+function viewStats(){
+  var done=Object.keys(db.records).length, okc=0, wrongN=0;
+  Object.keys(db.records).forEach(function(k){ if(db.records[k].ok) okc++; });
+  wrongN=Object.keys(db.wrong).length;
+  var h='<div class="card"><h2>学习统计</h2><div class="grid c3">';
+  h+='<div class="tile"><div class="statnum">'+done+'</div><div class="small muted">已作答（不重复）</div></div>';
+  h+='<div class="tile"><div class="statnum">'+pct(okc,Math.max(done,1))+'%</div><div class="small muted">总正确率</div></div>';
+  h+='<div class="tile"><div class="statnum">'+wrongN+'</div><div class="small muted">当前错题</div></div>';
+  h+='</div>';
+  h+='<h3>各题型掌握情况</h3>';
+  TYPES.forEach(function(t){
+    var arr=ALL.filter(function(q){return q.type===t;}); var d=0,o=0;
+    arr.forEach(function(q){ var r=db.records[q.id]; if(r){ d++; if(r.ok) o++; } });
+    h+=barRow(TYPE_NAME[t], o, Math.max(d,1), d+'/'+arr.length);
+  });
+  h+='<h3>各章节掌握情况</h3>';
+  CHAP.forEach(function(c){
+    var arr=ALL.filter(function(q){return q.ch===c[0];}); if(!arr.length) return; var d=0,o=0;
+    arr.forEach(function(q){ var r=db.records[q.id]; if(r){ d++; if(r.ok) o++; } });
+    h+=barRow(c[1], o, Math.max(d,1), d+'/'+arr.length);
+  });
+  h+='<div style="margin-top:16px"><button class="btn" onclick="if(confirm(\'清空全部作答记录、错题和收藏？\')){db={records:{},fav:{},wrong:{}};save();updNav();render();}">重置全部数据</button></div>';
+  h+='</div>';
+  return h;
+}
+function barRow(label,o,d,note){
+  var p=pct(o,d); var col=p>=80?'#16a34a':(p>=60?'#d97706':'#dc2626');
+  return '<div style="margin:10px 0"><div class="row small"><span>'+esc(label)+'</span><span class="spacer"></span><span class="muted">'+note+' · 正确率 '+p+'%</span></div>'+
+    '<div class="progress" style="height:7px;margin-top:5px"><i style="width:'+p+'%;background:'+col+'"></i></div></div>';
+}
+
+/* ===== 表格自适应：外包一层可横向滚动的容器（移动端不撑破页面） ===== */
+function wrapTables(root){
+  var scope=root||document;
+  var ts=scope.querySelectorAll('table');
+  for(var i=0;i<ts.length;i++){
+    var t=ts[i];
+    if(t.parentNode && t.parentNode.classList && t.parentNode.classList.contains('tbl-wrap')) continue;
+    if(t.closest && t.closest('#printarea')) continue;
+    var w=document.createElement('div'); w.className='tbl-wrap';
+    t.parentNode.insertBefore(w,t); w.appendChild(t);
+  }
+}
+/* ===== 渲染 ===== */
+function render(){
+  var app=document.getElementById('app');
+  var h='';
+  if(view==='home') h=viewHome();
+  else if(view==='practice') h=viewPractice();
+  else if(view==='quiz') h=viewQuiz();
+  else if(view==='exam') h=viewExamSetup();
+  else if(view==='result') h=viewResult();
+  else if(view==='wrong') h=viewList('wrong');
+  else if(view==='fav') h=viewList('fav');
+  else if(view==='stats') h=viewStats();
+  else h=viewHome();
+  app.innerHTML=h;
+  wrapTables(app);
+  if(view==='quiz') window.scrollTo(0,0);
+}
+window.addEventListener('keydown',function(e){
+  if(view!=='quiz') return;
+  if(document.activeElement && document.activeElement.tagName==='INPUT'){ if(e.key==='Enter'){ submitCur(); } return; }
+  if(e.key==='ArrowLeft') nav(-1);
+  else if(e.key==='ArrowRight') nav(1);
+  else if('12345'.indexOf(e.key)>=0){ var q=S.queue[S.idx]; if(q&&q.type!=='blank'&&q.type!=='short'&&q.type!=='term'){ pick(q.id, parseInt(e.key,10)-1); } }
+  else if('abcdefgh'.indexOf(e.key.toLowerCase())>=0){ var q2=S.queue[S.idx]; if(q2&&OBJ.indexOf(q2.type)>=0 && q2.type!=='blank'){ pick(q2.id, 'abcdefgh'.indexOf(e.key.toLowerCase())); } }
+});
+updNav();
+render();
+</script>
+</body>
+</html>
