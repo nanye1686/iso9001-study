@@ -1,5 +1,9 @@
 # ISO 9001 内审员学习工具
 
+[![verify-build](https://github.com/nanye1686/iso9001-study/actions/workflows/verify.yml/badge.svg)](https://github.com/nanye1686/iso9001-study/actions/workflows/verify.yml)
+[![在线使用](https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E4%BD%BF%E7%94%A8-%E6%89%93%E5%BC%80%E7%BD%91%E9%A1%B5-2563eb)](https://nanye1686.github.io/iso9001-study/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 面向**零基础**的 ISO 9001:2015（GB/T 19001-2016）内审员学习工具包，纯前端、单文件、**离线可用**。
 
 包含两个网页工具：
@@ -9,7 +13,10 @@
 | **内审员刷题库** `iso9001-quiz.html` | 刷题、模拟考、错题本、导出错题集 |
 | **内审员工作台** `iso9001-workbench.html` | 入门路线、条款速查、内审检查表、不符合项报告、术语、模拟内审、2026 换版 |
 
-在线打开：**https://nanye1686.github.io/iso9001-study/**（GitHub Pages 部署后生效）
+> 🚀 **在线使用（手机可直接打开，也可「添加到主屏幕」当 App）**
+> - 🧠 **内审员刷题库** → <https://nanye1686.github.io/iso9001-study/iso9001-quiz.html>
+> - 🧰 **内审员工作台** → <https://nanye1686.github.io/iso9001-study/iso9001-workbench.html>
+> - 🏠 落地页 → <https://nanye1686.github.io/iso9001-study/>
 
 📱 **手机可用**：页面已做移动端适配（导航横向滑动、表格可横滚、触控按钮加大、防聚焦缩放），并带 **PWA 清单**——手机浏览器打开后选「添加到主屏幕」，可像 App 一样全屏打开、离线使用。
 
