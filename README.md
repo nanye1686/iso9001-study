@@ -3,6 +3,7 @@
 [![verify-build](https://github.com/nanye1686/iso9001-study/actions/workflows/verify.yml/badge.svg)](https://github.com/nanye1686/iso9001-study/actions/workflows/verify.yml)
 [![在线使用](https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E4%BD%BF%E7%94%A8-%E6%89%93%E5%BC%80%E7%BD%91%E9%A1%B5-2563eb)](https://nanye1686.github.io/iso9001-study/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Changelog](https://img.shields.io/badge/%E6%9B%B4%E6%96%B0%E5%8E%86%E5%8F%B2-CHANGELOG-2563eb)](CHANGELOG.md)
 
 面向**零基础**的 ISO 9001:2015（GB/T 19001-2016）内审员学习工具包，纯前端、单文件、**离线可用**。
 
@@ -124,6 +125,10 @@ node src/build.js
 - 「2026 换版」页依据 **ISO 9001:2026 正式版（2026-09-16 发布）** 及 BSI / SGS / TÜV 等机构的公开解读整理，**最终以 ISO 正式文本和我国等同采用的国家标准（GB/T）为准**。
 - 「CCAA 统考真题」区为 CCAA 统考客观题的**节选 / 回忆整理**，试题版权归 CCAA 所有，仅用于学习交流；如涉版权请联系删除。
 - 题库内容仅供参考，不构成认证、审核或合规依据。
+
+## 📝 更新历史
+
+版本迭代记录见 [`CHANGELOG.md`](CHANGELOG.md)（当前 **v1.1.0**，2026-10-13：跟进 ISO 9001:2026 正式发布 + 新增 CCAA 统考真题专区）。
 
 ## 📄 许可
 
