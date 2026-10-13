@@ -211,7 +211,7 @@ summary{cursor:pointer;font-weight:700}
 </div></div>
 
 <div class="wrap" id="app"></div>
-<div class="foot">ISO 9001:2015 / GB-T 19001-2016 · 内审员学习自测工具 · 数据保存在本机浏览器</div>
+<div class="foot">ISO 9001:2015 / GB-T 19001-2016（含 2026 换版专题）· 内审员学习自测工具 · 数据保存在本机浏览器</div>
 
 <script>/*__BANK_DATA__*/</script>
 <script>
@@ -219,9 +219,9 @@ summary{cursor:pointer;font-weight:700}
 /* ===== 数据装配 ===== */
 var ALL = [];
 (function(){
-  function add(arr,type){ (arr||[]).forEach(function(q){ q.type=(type==='v2026')?infer26(q):type; ALL.push(q); }); }
+  function add(arr,type){ (arr||[]).forEach(function(q){ q.type=(type==='v2026'||type==='ccaa')?infer26(q):type; ALL.push(q); }); }
   add(BANK_SINGLE,'single'); add(BANK_MULTI,'multi'); add(BANK_JUDGE,'judge');
-  add(BANK_BLANK,'blank'); add(BANK_CASE,'case'); add(BANK_SHORT,'short'); add(BANK_TERM,'term'); add(BANK_V2026,'v2026');
+  add(BANK_BLANK,'blank'); add(BANK_CASE,'case'); add(BANK_SHORT,'short'); add(BANK_TERM,'term'); add(BANK_V2026,'v2026'); add(BANK_CCAA,'ccaa');
 })();
 /* 2026换版专题是混合题型，按结构推断类型 */
 function infer26(q){ if(q.model) return 'short'; if(q.options) return (q.answer&&q.answer.length>1)?'multi':'single'; return 'judge'; }
@@ -231,7 +231,7 @@ var BY_ID = {}; ALL.forEach(function(q){ BY_ID[q.id]=q; });
 var TYPE_NAME={single:'单选题',multi:'多选题',judge:'判断题',blank:'填空题',case:'案例题',short:'简答题',term:'名词解释'};
 var TYPES=['single','multi','judge','blank','case','short','term'];
 var OBJ=['single','multi','judge','blank','case'];
-var CHAP=[['0','基础概念/原则'],['4','第4章 组织环境'],['5','第5章 领导作用'],['6','第6章 策划'],['7','第7章 支持'],['8','第8章 运行'],['9','第9章 绩效评价'],['10','第10章 改进'],['26','2026换版专题']];
+var CHAP=[['0','基础概念/原则'],['4','第4章 组织环境'],['5','第5章 领导作用'],['6','第6章 策划'],['7','第7章 支持'],['8','第8章 运行'],['9','第9章 绩效评价'],['10','第10章 改进'],['26','2026换版专题'],['31','CCAA 统考真题']];
 var CHAP_NAME={}; CHAP.forEach(function(c){CHAP_NAME[c[0]]=c[1];});
 
 /* ===== 本地存储 ===== */
@@ -264,14 +264,14 @@ function viewHome(){
   var okc=0; Object.keys(db.records).forEach(function(k){ if(db.records[k].ok) okc++; });
   var cases=ALL.filter(function(q){return q.type==='case';}).length;
   var h='';
-  h+='<div class="card hero"><h1>ISO 9001:2015 内审员刷题库</h1>'+
-     '<p>面向零基础学员：概念速览 + 经典题型 + <b>案例专题</b>。全部题目附条款出处与解析，边做边学。</p>'+
+  h+='<div class="card hero"><h1>ISO 9001 内审员刷题库</h1>'+
+     '<p>面向零基础学员：概念速览 + 经典题型 + <b>案例专题</b> + <b>2026 换版专题</b>。全部题目附条款出处与解析，边做边学。</p>'+
      '<span class="pill">共 '+total+' 题</span><span class="pill">案例专题 '+cases+' 题</span><span class="pill">已作答 '+done+' 题</span><span class="pill">答对率 '+pct(okc,Math.max(done,1))+'%</span>'+
      '<div class="row" style="margin-top:14px"><button class="btn" style="background:#fff;border-color:#fff" onclick="startRange({scope:\'all\'})">开始刷题</button>'+
      '<button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.6)" onclick="go(\'exam\')">模拟考试</button></div></div>';
 
   h+='<div class="card"><h2>零基础速览 · 30秒看懂 ISO 9001</h2>'+
-    '<details open><summary>1. ISO 9001 是什么？</summary><p class="small">ISO 9001 是国际标准化组织（ISO）发布的<b>质量管理体系要求</b>标准，现行版本为 <b>2015 版</b>（我国等同采用为 GB/T 19001-2016）。它不规定产品本身的技术指标，而是要求组织建立一套"把事做对、持续改进"的管理体系，以便稳定提供满足顾客和适用法律法规要求的产品和服务，并增强顾客满意。</p></details>'+
+    '<details open><summary>1. ISO 9001 是什么？</summary><p class="small">ISO 9001 是国际标准化组织（ISO）发布的<b>质量管理体系要求</b>标准。<b>ISO 9001:2026 已于 2026 年 9 月发布</b>（第六版）；我国现行等同采用版本仍为 <b>GB/T 19001-2016</b>（对应 2015 版），2015 版在过渡期（约至 2029-09）内仍有效。它不规定产品本身的技术指标，而是要求组织建立一套"把事做对、持续改进"的管理体系，以便稳定提供满足顾客和适用法律法规要求的产品和服务，并增强顾客满意。</p></details>'+
     '<details><summary>2. 七项质量管理原则</summary><p class="small">①以顾客为关注焦点 ②领导作用 ③全员积极参与 ④过程方法 ⑤改进 ⑥循证决策 ⑦关系管理。</p></details>'+
     '<details><summary>3. PDCA 循环</summary><p class="small"><b>P 策划</b>（第6章）、<b>D 实施</b>（第7、8章）、<b>C 检查</b>（第9章）、<b>A 改进</b>（第10章）。整个标准围绕 PDCA 展开。</p></details>'+
     '<details><summary>4. 过程方法 & 基于风险的思维</summary><p class="small">把活动看成相互关联的过程来管理（输入→活动→输出），并识别可能影响体系结果的风险与机遇。二者是 2015 版的核心理念。</p></details>'+
@@ -293,7 +293,8 @@ function viewHome(){
   h+='<div class="card"><h2>专题 · 案例专项</h2>'+
     '<p class="small muted">情景判定题：给出真实审核场景，判断是否符合标准、违反哪一条款。这是内审员最核心的能力，建议反复刷。</p>'+
     '<div class="grid c2"><button class="tile" onclick="startRange({scope:\'type\',type:\'case\',shuffle:true})"><div class="t">案例专题（全部）</div><div class="big">'+cases+'</div><div class="small muted">题 · 随机顺序</div></button>'+
-    '<button class="tile" onclick="startRange({scope:\'all\',n:20,shuffle:true})"><div class="t">随机20题小测</div><div class="big">20</div><div class="small muted">题 · 混合全部题型</div></button></div></div>';
+    '<button class="tile" onclick="startRange({scope:\'all\',n:20,shuffle:true})"><div class="t">随机20题小测</div><div class="big">20</div><div class="small muted">题 · 混合全部题型</div></button>'+
+    '<button class="tile" onclick="startRange({scope:\'chap\',chap:\'31\',shuffle:true})"><div class="t">CCAA 统考真题</div><div class="big">'+ALL.filter(function(q){return q.ch==='31';}).length+'</div><div class="small muted">题 · 国家注册审核员统考节选</div></button></div></div>';
 
   var wn=Object.keys(db.wrong).length, fn=Object.keys(db.fav).length;
   h+='<div class="card"><h2>导出 · 错题集 / 收藏集</h2>'+

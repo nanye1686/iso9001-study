@@ -3,9 +3,9 @@ const path = require('path');
 const SRC = __dirname;
 const OUT = path.join(__dirname, '..', 'iso9001-quiz.html');
 
-const FILES = ['bank-single.js','bank-multi.js','bank-judge.js','bank-blank.js','bank-case.js','bank-short.js','bank-term.js','bank-v2026.js'];
-const VARS  = ['BANK_SINGLE','BANK_MULTI','BANK_JUDGE','BANK_BLANK','BANK_CASE','BANK_SHORT','BANK_TERM','BANK_V2026'];
-const NAMES = ['SINGLE','MULTI','JUDGE','BLANK','CASE','SHORT','TERM','V2026'];
+const FILES = ['bank-single.js','bank-multi.js','bank-judge.js','bank-blank.js','bank-case.js','bank-short.js','bank-term.js','bank-v2026.js','bank-ccaa.js'];
+const VARS  = ['BANK_SINGLE','BANK_MULTI','BANK_JUDGE','BANK_BLANK','BANK_CASE','BANK_SHORT','BANK_TERM','BANK_V2026','BANK_CCAA'];
+const NAMES = ['SINGLE','MULTI','JUDGE','BLANK','CASE','SHORT','TERM','V2026','CCAA'];
 
 const banks = FILES.map(f => '/* ===== ' + f + ' ===== */\n' + fs.readFileSync(path.join(SRC, f), 'utf8').trim());
 const bankCode = banks.join('\n\n');
